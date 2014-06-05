@@ -1,0 +1,184 @@
+{
+  "teams" : {
+    "alg" : {
+      "group" : "h",
+      "name" : "Algeria"
+    },
+    "por" : {
+      "group" : "g",
+      "name" : "Portugal"
+    },
+    "esp" : {
+      "group" : "b",
+      "name" : "Spain"
+    },
+    "chi" : {
+      "group" : "b",
+      "name" : "Chile"
+    },
+    "fra" : {
+      "group" : "e",
+      "name" : "France"
+    },
+    "jpn" : {
+      "group" : "c",
+      "name" : "Japan"
+    },
+    "cmr" : {
+      "group" : "a",
+      "name" : "Cameroon"
+    },
+    "ned" : {
+      "group" : "b",
+      "name" : "Netherlands"
+    },
+    "ecu" : {
+      "group" : "e",
+      "name" : "Ecuador"
+    },
+    "hon" : {
+      "group" : "e",
+      "name" : "Honduras"
+    },
+    "nga" : {
+      "group" : "f",
+      "name" : "Nigeria"
+    },
+    "uru" : {
+      "group" : "d",
+      "name" : "Uruguay"
+    },
+    "civ" : {
+      "group" : "c",
+      "name" : "Cote D'Ivoire"
+    },
+    "bih" : {
+      "group" : "f",
+      "name" : "Bosnia and Herzegovina"
+    },
+    "cro" : {
+      "group" : "a",
+      "name" : "Croatia"
+    },
+    "ita" : {
+      "group" : "d",
+      "name" : "Italy"
+    },
+    "gha" : {
+      "group" : "g",
+      "name" : "Ghana"
+    },
+    "gre" : {
+      "group" : "c",
+      "name" : "Greece"
+    },
+    "col" : {
+      "group" : "c",
+      "name" : "Colombia"
+    },
+    "bra" : {
+      "group" : "a",
+      "name" : "Brazil"
+    },
+    "bel" : {
+      "group" : "h",
+      "name" : "Belgium"
+    },
+    "crc" : {
+      "group" : "d",
+      "name" : "Costa Rica"
+    },
+    "usa" : {
+      "group" : "g",
+      "name" : "USA"
+    },
+    "aus" : {
+      "group" : "b",
+      "name" : "Australia"
+    },
+    "irn" : {
+      "group" : "f",
+      "name" : "Iran"
+    },
+    "arg" : {
+      "group" : "f",
+      "name" : "Argentina"
+    },
+    "ger" : {
+      "group" : "g",
+      "name" : "Germany"
+    },
+    "kor" : {
+      "group" : "h",
+      "name" : "Korea Republic"
+    },
+    "mex" : {
+      "group" : "a",
+      "name" : "Mexico"
+    },
+    "rus" : {
+      "group" : "h",
+      "name" : "Russia"
+    },
+    "eng" : {
+      "group" : "d",
+      "name" : "England"
+    },
+    "sui" : {
+      "group" : "e",
+      "name" : "Switzerland"
+    }
+  },
+  "matches" : { 
+    "1": { "date" : 1402606800000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "bra", "visitor" : "cro", "group_stage" : "1" },
+    "2": { "date" : 1402678800000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "mex", "visitor" : "cmr", "group_stage" : "1" },
+    "3": { "date" : 1402689600000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "esp", "visitor" : "ned", "group_stage" : "1" },
+    "4": { "date" : 1402696800000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "chi", "visitor" : "aus", "group_stage" : "1" },
+    "5": { "date" : 1402765200000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "col", "visitor" : "gre", "group_stage" : "1" },
+    "6": { "date" : 1402776000000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "uru", "visitor" : "crc", "group_stage" : "1" },
+    "7": { "date" : 1402783200000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "eng", "visitor" : "ita", "group_stage" : "1" },
+    "8": { "date" : 1402797600000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "civ", "visitor" : "jpn", "group_stage" : "1" },
+    "9": { "date" : 1402851600000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "sui", "visitor" : "ecu", "group_stage" : "1" },
+    "10": { "date" : 1402862400000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "fra", "visitor" : "hon", "group_stage" : "1" },
+    "11": { "date" : 1402873200000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "arg", "visitor" : "bih", "group_stage" : "1" },
+    "12": { "date" : 1402938000000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "ger", "visitor" : "por", "group_stage" : "1" },
+    "13": { "date" : 1402948800000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "irn", "visitor" : "nga", "group_stage" : "1" },
+    "14": { "date" : 1402959600000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "gha", "visitor" : "usa", "group_stage" : "1" },
+    "15": { "date" : 1403024400000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "bel", "visitor" : "alg", "group_stage" : "1" },
+    "16": { "date" : 1403042400000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "rus", "visitor" : "kor", "group_stage" : "1" },
+    "17": { "date" : 1403035200000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "bra", "visitor" : "mex", "group_stage" : "2" },
+    "18": { "date" : 1403110800000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "aus", "visitor" : "ned", "group_stage" : "2" },
+    "19": { "date" : 1403121600000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "esp", "visitor" : "chi", "group_stage" : "2" },
+    "20": { "date" : 1403128800000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "cmr", "visitor" : "cro", "group_stage" : "2" },
+    "21": { "date" : 1403197200000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "col", "visitor" : "civ", "group_stage" : "2" },
+    "22": { "date" : 1403208000000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "uru", "visitor" : "eng", "group_stage" : "2" },
+    "23": { "date" : 1403218800000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "jpn", "visitor" : "gre", "group_stage" : "2" },
+    "24": { "date" : 1403283600000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "ita", "visitor" : "crc", "group_stage" : "2" },
+    "25": { "date" : 1403294400000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "sui", "visitor" : "fra", "group_stage" : "2" },
+    "26": { "date" : 1403305200000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "hon", "visitor" : "ecu", "group_stage" : "2" },
+    "27": { "date" : 1403370000000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "arg", "visitor" : "irn", "group_stage" : "2" },
+    "28": { "date" : 1403380800000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "ger", "visitor" : "gha", "group_stage" : "2" },
+    "29": { "date" : 1403388000000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "nga", "visitor" : "bih", "group_stage" : "2" },
+    "30": { "date" : 1403456400000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "bel", "visitor" : "rus", "group_stage" : "2" },
+    "31": { "date" : 1403467200000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "kor", "visitor" : "alg", "group_stage" : "2" },
+    "32": { "date" : 1403474400000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "usa", "visitor" : "por", "group_stage" : "2" },
+    "33": { "date" : 1403542800000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "aus", "visitor" : "esp", "group_stage" : "3" },
+    "34": { "date" : 1403542800000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "ned", "visitor" : "chi", "group_stage" : "3" },
+    "35": { "date" : 1403557200000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "cmr", "visitor" : "bra", "group_stage" : "3" },
+    "36": { "date" : 1403557200000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "cro", "visitor" : "mex", "group_stage" : "3" },
+    "37": { "date" : 1403629200000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "ita", "visitor" : "uru", "group_stage" : "3" },
+    "38": { "date" : 1403629200000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "crc", "visitor" : "eng", "group_stage" : "3" },
+    "39": { "date" : 1403643600000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "jpn", "visitor" : "col", "group_stage" : "3" },
+    "40": { "date" : 1403643600000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "gre", "visitor" : "civ", "group_stage" : "3" },
+    "41": { "date" : 1403715600000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "nga", "visitor" : "arg", "group_stage" : "3" },
+    "42": { "date" : 1403715600000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "bih", "visitor" : "irn", "group_stage" : "3" },
+    "43": { "date" : 1403730000000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "hon", "visitor" : "sui", "group_stage" : "3" },
+    "44": { "date" : 1403730000000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "ecu", "visitor" : "fra", "group_stage" : "3" },
+    "45": { "date" : 1403802000000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "usa", "visitor" : "ger", "group_stage" : "3" },
+    "46": { "date" : 1403802000000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "por", "visitor" : "gha", "group_stage" : "3" },
+    "47": { "date" : 1403816400000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "kor", "visitor" : "bel", "group_stage" : "3" },
+    "48": { "date" : 1403816400000, "visitorGoals" : -1, "homeGoals" : -1, "home" : "alg", "visitor" : "rus", "group_stage" : "3" }
+  } 
+}
+
+
