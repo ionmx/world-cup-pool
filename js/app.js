@@ -19,6 +19,10 @@ App.ApplicationAdapter = DS.FirebaseAdapter.extend({
 });
 
 App.ApplicationRoute = Ember.Route.extend({
+  init: function() {
+    var auth = this.get('auth');
+    auth.store = this.get('store');
+  }, 
   actions: {
     login: function() {
       this.get('auth').login();
@@ -41,6 +45,7 @@ App.AuthController = Ember.Controller.extend({
   currentUser: null,
 
   init: function() {
+    self = this;
     this.authClient = new FirebaseSimpleLogin(firebaseRef, function(error, userTwitter) {
       if (error) {
         alert('Authentication failed: ' + error);
@@ -48,10 +53,7 @@ App.AuthController = Ember.Controller.extend({
         this.set('authed', true);
         var controller = this;
 
-        // FIXME: This is a ugly hack, needs to get App store here 
-        var store = App.get('Team.store'); 
-
-        store.find('user', userTwitter.username).then(function(user) {
+        self.store.find('user', userTwitter.username).then(function(user) {
           controller.set('currentUser', user);
         }, function(reason) {
           // Create user...
@@ -61,7 +63,7 @@ App.AuthController = Ember.Controller.extend({
             displayName: userTwitter.displayName,
             avatarUrl: userTwitter.thirdPartyUserData.profile_image_url
           };
-          var user = store.createRecord('user', properties);
+          var user = self.store.createRecord('user', properties);
           user.save();
           controller.set('currentUser', user);
         });
@@ -115,7 +117,7 @@ App.Match = DS.Model.extend({
 });
 
 /*********
- * Routes
+ * Router
  *********/
 App.Router.map(function() {
   this.resource('teams', { path: '/teams' });
