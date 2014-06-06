@@ -3,13 +3,83 @@
  ******/
 App = Ember.Application.create({
   LOG_TRANSITIONS: true,
+
   ready: function() {
-    console.log('App ready.')    
+    this.register('main:auth', App.AuthController);
+    this.inject('route', 'auth', 'main:auth');
+    this.inject('controller', 'auth', 'main:auth');
+  }
+
+});
+
+var firebaseRef = new Firebase('https://fifapool2014.firebaseio.com');
+
+App.ApplicationAdapter = DS.FirebaseAdapter.extend({
+  firebase: firebaseRef
+});
+
+App.ApplicationRoute = Ember.Route.extend({
+  actions: {
+    login: function() {
+      this.get('auth').login();
+    },
+
+    logout: function() {
+      this.get('auth').logout();
+    }
   }
 });
 
-App.ApplicationAdapter = DS.FirebaseAdapter.extend({
-  firebase: new Firebase('https://<yourfirebase>.firebaseio.com')
+App.ApplicationController = Ember.Controller.extend({
+});
+
+/********
+ * Auth 
+ *******/
+App.AuthController = Ember.Controller.extend({
+  authed: false,
+  currentUser: null,
+
+  init: function() {
+    this.authClient = new FirebaseSimpleLogin(firebaseRef, function(error, userTwitter) {
+      if (error) {
+        alert('Authentication failed: ' + error);
+      } else if (userTwitter) {
+        this.set('authed', true);
+        var controller = this;
+
+        // FIXME: This is a ugly hack, needs to get App store here 
+        var store = App.get('Team.store'); 
+
+        store.find('user', userTwitter.username).then(function(user) {
+          controller.set('currentUser', user);
+        }, function(reason) {
+          // Create user...
+          var properties = {
+            id: userTwitter.username,
+            name: userTwitter.username,
+            displayName: userTwitter.displayName,
+            avatarUrl: userTwitter.thirdPartyUserData.profile_image_url
+          };
+          var user = store.createRecord('user', properties);
+          user.save();
+          controller.set('currentUser', user);
+        });
+        
+      } else {
+        this.set('authed', false);
+      }
+    }.bind(this));
+  },
+
+  login: function() {
+    this.authClient.login('twitter', { rememberMe: true });
+  },
+
+  logout: function() {
+    this.authClient.logout();
+  }
+
 });
 
 
@@ -17,9 +87,15 @@ App.ApplicationAdapter = DS.FirebaseAdapter.extend({
  * Models 
  *********/
 
+App.User = DS.Model.extend({
+  name:  DS.attr('string'),
+  displayName:  DS.attr('string'),
+  avatarUrl:  DS.attr('string'),
+});
+
 App.Team = DS.Model.extend({
-  name:           DS.attr('string'),
-  group:          DS.attr('string'),
+  name:  DS.attr('string'),
+  group: DS.attr('string'),
 
   flag: function() {
     return 'img/' + this.get('id') + '.png';
