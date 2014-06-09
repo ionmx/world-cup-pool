@@ -1,0 +1,36 @@
+table.matches tr td {
+  vertical-align: middle;
+}
+.match-date {
+  font-size: 11px;
+  color: #777;
+}
+.flag {
+  width: 32px;
+  margin: 5px;
+  border: 1px solid #666;
+}
+.team {
+}
+.home-team {
+  font-size: 16px;
+  text-align: right;
+}
+.visitor-team {
+  font-size: 16px;
+  text-align: left;
+}
+.bih {
+  font-size: 12px !important;
+}
+.score {
+  font-weight: bold;
+  font-size: 20px;
+}
+.score .glyphicon {
+  font-size: 16px;
+  color: #777;
+}
+.vs {
+  color: #eee;
+}

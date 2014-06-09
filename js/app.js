@@ -1,3 +1,11 @@
+/*********
+ * Utils
+ *********/
+function calculateScore(match, prediction) {
+  // TODO: Calculate this.
+  return 1;
+}
+
 /******
  * App 
  ******/
@@ -35,6 +43,16 @@ App.ApplicationRoute = Ember.Route.extend({
 });
 
 App.ApplicationController = Ember.Controller.extend({
+  init: function() {
+    self = this;
+    Ember.RSVP.hash({
+      matches: this.store.find('match'),
+      //predictions: this.store.find('prediction'),
+    }).then(function(promises){
+      self.set('matchesCache', promises.matches);
+      //self.set('predictionsCache', promises.predictions);
+    }.bind(this));
+  }
 });
 
 /********
@@ -63,9 +81,27 @@ App.AuthController = Ember.Controller.extend({
             displayName: userTwitter.displayName,
             avatarUrl: userTwitter.thirdPartyUserData.profile_image_url
           };
-          var user = self.store.createRecord('user', properties);
-          user.save();
-          controller.set('currentUser', user);
+          var u = self.store.createRecord('user', properties);
+          u.save().then(function() {
+            // Add empty predictions...
+            // var matches = self.store.find('match');
+            var predProperties = {
+              'id': [u.id, '_', 1].join(''),
+              'user': u,
+              'match': 1,
+              'homePrediction': 5,
+              'visitorPrediction': 10,
+            };
+            var p = self.store.createRecord('prediction', predProperties);
+            p.save().then(function() {
+              Promise.cast(u.get('predictions')).then(function(predictions) {
+                predictions.addObject(p);
+                u.save().then(function() {}, function() {});
+              });
+            });
+          });
+
+          controller.set('currentUser', u);
         });
         
       } else {
@@ -90,9 +126,21 @@ App.AuthController = Ember.Controller.extend({
  *********/
 
 App.User = DS.Model.extend({
-  name:  DS.attr('string'),
+  name:         DS.attr('string'),
   displayName:  DS.attr('string'),
-  avatarUrl:  DS.attr('string'),
+  avatarUrl:    DS.attr('string'),
+  predictions:  DS.hasMany('prediction', { inverse: 'user', async: true }),
+ 
+  //score: function(){
+  //  var preds = this.get('predictions');
+  //  var ret = 0;
+  //  preds.forEach(function(p){
+  //    // TODO: Add rules
+  //    ret += calculateScore(match, p);
+  //  });
+  //  return ret;
+  //}.property('predictions.@each.homePrediction', 'predictions.@each.visitorPrediction')
+
 });
 
 App.Team = DS.Model.extend({
@@ -106,14 +154,22 @@ App.Team = DS.Model.extend({
 });
 
 App.Match = DS.Model.extend({
-  date:  DS.attr('number'),
-  home: DS.belongsTo('team', { async: true }),
-  homeGoals: DS.attr('number'),
-  visitor: DS.belongsTo('team', { async: true }),
+  date:         DS.attr('number'),
+  home:         DS.belongsTo('team', { async: true }),
+  homeGoals:    DS.attr('number'),
+  visitor:      DS.belongsTo('team', { async: true }),
   visitorGoals: DS.attr('number'),
+  
   matchDate: function() {
     return moment(this.get('date')).format('MMMM Do, h:mm:ss a');
   }.property('date')
+
+});
+
+App.Prediction = DS.Model.extend({
+  user:              DS.belongsTo('user', { async: true }),
+  homePrediction:    DS.attr('number'),
+  visitorPrediction: DS.attr('number'),
 });
 
 /*********
@@ -122,14 +178,18 @@ App.Match = DS.Model.extend({
 App.Router.map(function() {
   this.resource('teams', { path: '/teams' });
   this.resource('matches', { path: '/matches' });
+  this.resource('user', { path: '/user/:user_id' });
 });
 
 /********
  * Index
  ********/
 App.IndexRoute = Ember.Route.extend({
-  redirect: function() {
-    this.transitionTo('teams');
+  model: function() {
+    return Ember.RSVP.hash({
+      matches: this.store.find('match'),
+      users: this.store.find('user')
+    });
   }
 });
 
@@ -158,7 +218,22 @@ App.MatchesRoute = Ember.Route.extend({
 
 App.MatchesController = Ember.ArrayController.extend({
   sortProperties: ['date'],
-  sortAscending: true
+  sortAscending: true,
+  itemController: 'match'
+});
+
+App.MatchController = Ember.ObjectController.extend({
+  displayScore: Ember.computed.gte('homeGoals', 0)
+});
+
+/*******
+ * User 
+ *******/
+App.UserRoute = Ember.Route.extend({
+});
+
+App.UserController = Ember.ObjectController.extend({
+  needs: ["application"]
 });
 
 

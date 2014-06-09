@@ -21,7 +21,7 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Link</a></li>
+            <li>{{#link-to 'matches'}}Matches{{/link-to}}</li>
           </ul>
           <div class="pull-right">
             {{#if auth.authed }}
@@ -35,9 +35,51 @@
         </div>
       </div>
     </nav>
-                <button type="button" class="btn btn-success" {{ action login }}>Sign in</button>
+    <div class="container">
+      {{outlet}}
+    </div>
+  </script>
 
-    {{outlet}}
+  <script type="text/x-handlebars" data-template-name="index">
+    {{matches-table matches=matches}}
+  </script>
+
+  <script type="text/x-handlebars" id="components/matches-table">
+    <div class="row">
+      <div class="col-md-8">
+        <table class="table matches">
+        {{#each match in matches itemController="match"}}
+          <tr>
+            <td class="match-date">{{match.matchDate}}</td>
+            <td class="home-team" {{bind-attr class=match.home.id}}>
+              <span class="team">{{match.home.name}}</span>
+              <img {{bind-attr src=match.home.flag alt=match.home.id}} class="flag"> 
+            </td>
+            {{#if match.displayScore }}
+              <td class="home-score score">{{match.homeGoals}}</td> 
+              <td class="vs">-</td> 
+              <td class="visitor-score score">{{match.visitorGoals}}</td> 
+            {{else}}
+              <td class="home-score score"><span class="glyphicon glyphicon-minus"></span></td>
+              <td class="vs">-</td> 
+              <td class="visitor-score score"><span class="glyphicon glyphicon-minus"></span></td>
+            {{/if}}
+            {{#if user}}
+              <td>{{user.name}}</td>
+            {{/if}}
+            <td class="visitor-team" {{bind-attr class=match.visitor.id}}>
+              <img {{bind-attr src=match.visitor.flag alt=match.visitor.id}} class="flag"> 
+              <span class="team">{{match.visitor.name}}</span>
+            </td>
+          </tr>
+       {{/each}}
+       </table>
+      </div>
+      
+      <div class="col-md-4">
+      </div>
+
+    </div>
   </script>
   
   <script type="text/x-handlebars" data-template-name="teams">
@@ -45,23 +87,29 @@
     <ul>
     {{#each team in model}}
       <li>
-        <img {{bind-attr src=team.flag alt=team.code}}>
-        {{team.name}} {{team.id}}
+        <img {{bind-attr src=team.flag alt=team.code}} class="flag">
+        {{team.name}}
       </li>
     {{/each}}
     </ul>
   </script>
 
   <script type="text/x-handlebars" data-template-name="matches">
-    <h2>Matches</h2>
-    <ul>
-    {{#each match in model}}
-      <li>
-        {{match.matchDate}} {{match.home.name}} vs. {{match.visitor.name}}
-      </li>
-    {{/each}}
-    </ul>
+    {{matches-table matches=model}}
   </script>
+
+  <script type="text/x-handlebars" data-template-name="user">
+    <h1>
+      <img {{bind-attr src=model.avatarUrl alt=model.id}} class="avatar img-circle">
+      {{model.name}}
+    </h1>
+    Model predictions {{model.predictions}}
+    {{#each p in model.predictions}}
+      ID: {{p.id}}
+    {{/each}}
+    {{matches-table matches=controllers.application.matchesCache user=model}}
+  </script>
+
 
   <script src="js/jquery.js"></script>
   <script src="js/firebase.js"></script>
@@ -71,7 +119,7 @@
   <script src="js/emberfire.js"></script>
   <script src="js/firebase-simple-login.js"></script>
   <script src="js/moment-with-langs.js"></script>
-  <script src="js/bootstrap-min.js"></script>
+  <script src="js/bootstrap.js"></script>
   <script src="js/app.js"></script>
 
   <script>
