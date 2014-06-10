@@ -44,10 +44,26 @@
     {{matches-table matches=matches}}
   </script>
 
-  <script type="text/x-handlebars" id="components/matches-table">
+  <script type="text/x-handlebars" data-template-name="prediction">
+    {{prediction}}
+  </script>
+
+  <script type="text/x-handlebars" id="components/matches-table"> 
     <div class="row">
       <div class="col-md-8">
         <table class="table matches">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th colspan="5">
+              Score
+              {{#if auth.authed}} 
+               /Prediction
+              {{/if}}
+            </th>
+            <th>Points</th>
+          </tr>
+        </thead>
         {{#each match in matches itemController="match"}}
           <tr>
             <td class="match-date">{{match.matchDate}} {{match.matchTime}}</td>
@@ -55,21 +71,27 @@
               <span class="team">{{match.home.name}}</span>
               <img {{bind-attr src=match.home.flag alt=match.home.id}} class="flag"> 
             </td>
-            {{#if match.displayScore }}
-              <td class="home-score score">{{match.homeGoals}}</td> 
-              <td class="vs">-</td> 
-              <td class="visitor-score score">{{match.visitorGoals}}</td> 
-            {{else}}
-              <td class="home-score score"><span class="glyphicon glyphicon-minus"></span></td>
-              <td class="vs">-</td> 
-              <td class="visitor-score score"><span class="glyphicon glyphicon-minus"></span></td>
-            {{/if}}
-            {{#if user}}
-              <td>{{user.name}}</td>
-            {{/if}}
+            <td class="home-score score">
+              {{match.homeGoalsDisplay}}
+              {{#if auth.authed}} 
+                <div class="prediction">{{match.prediction.homePrediction}}</div>
+              {{/if}}
+            </td> 
+            <td class="vs">-</td> 
+            <td class="visitor-score score">
+              {{match.visitorGoalsDisplay}}
+              {{#if auth.authed}} 
+                <div class="prediction">{{match.prediction.visitorPrediction}}</div>
+              {{/if}}
+            </td> 
             <td class="visitor-team" {{bind-attr class=match.visitor.id}}>
               <img {{bind-attr src=match.visitor.flag alt=match.visitor.id}} class="flag"> 
               <span class="team">{{match.visitor.name}}</span>
+            </td>
+            <td class="points">
+              {{#if auth.authed}} 
+                {{match.userPoints}}</div>
+              {{/if}}
             </td>
           </tr>
        {{/each}}

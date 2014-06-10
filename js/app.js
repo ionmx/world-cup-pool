@@ -11,11 +11,11 @@ function calculateScore(match, prediction) {
  ******/
 App = Ember.Application.create({
   LOG_TRANSITIONS: true,
-
   ready: function() {
     this.register('main:auth', App.AuthController);
     this.inject('route', 'auth', 'main:auth');
     this.inject('controller', 'auth', 'main:auth');
+    this.inject('component', 'auth', 'main:auth');
   }
 
 });
@@ -43,14 +43,13 @@ App.ApplicationRoute = Ember.Route.extend({
 });
 
 App.ApplicationController = Ember.Controller.extend({
+  viewUserID: '',
   init: function() {
     self = this;
     Ember.RSVP.hash({
       matches: this.store.find('match'),
-      //predictions: this.store.find('prediction'),
     }).then(function(promises){
       self.set('matchesCache', promises.matches);
-      //self.set('predictionsCache', promises.predictions);
     }.bind(this));
   }
 });
@@ -59,20 +58,20 @@ App.ApplicationController = Ember.Controller.extend({
  * Auth 
  *******/
 App.AuthController = Ember.Controller.extend({
+  needs: ['application'],
   authed: false,
   currentUser: null,
 
   init: function() {
-    self = this;
+    var self = this;
     this.authClient = new FirebaseSimpleLogin(firebaseRef, function(error, userTwitter) {
       if (error) {
         alert('Authentication failed: ' + error);
       } else if (userTwitter) {
-        this.set('authed', true);
-        var controller = this;
-
+       self.set('authed', true);
         self.store.find('user', userTwitter.username).then(function(user) {
-          controller.set('currentUser', user);
+          self.set('currentUser', user);
+          self.set('controllers.application.viewUserID', user.id);
         }, function(reason) {
           // Create user...
           var properties = {
@@ -83,25 +82,29 @@ App.AuthController = Ember.Controller.extend({
           };
           var u = self.store.createRecord('user', properties);
           u.save().then(function() {
+            self.set('currentUser', u);
+            self.set('controllers.application.viewUserID', u.id);
             // Add empty predictions...
-            // var matches = self.store.find('match');
-            var predProperties = {
-              'id': [u.id, '_', 1].join(''),
-              'user': u,
-              'match': 1,
-              'homePrediction': 5,
-              'visitorPrediction': 10,
-            };
-            var p = self.store.createRecord('prediction', predProperties);
-            p.save().then(function() {
-              Promise.cast(u.get('predictions')).then(function(predictions) {
-                predictions.addObject(p);
-                u.save().then(function() {}, function() {});
+            self.store.find('match').then(function(matches) {
+              matches.forEach(function(m) {
+                console.log(m.id);
+                var predProperties = {
+                  'id': [u.id, '_', m.id].join(''),
+                  'homePrediction': -1,
+                  'visitorPrediction': -1,
+                };
+                var p = self.store.createRecord('prediction', predProperties);
+                p.save().then(function() {
+                  u.get('predictions').then(function(predictions) {
+                    predictions.addObject(p);
+                    u.save();
+                  });
+                });
               });
             });
+
           });
 
-          controller.set('currentUser', u);
         });
         
       } else {
@@ -191,10 +194,17 @@ App.Router.map(function() {
 App.IndexRoute = Ember.Route.extend({
   model: function() {
     return Ember.RSVP.hash({
-      matches: this.store.find('match'),
-      users: this.store.find('user')
+      matches: this.store.find('match')
     });
   }
+});
+
+App.XIndexController = Ember.ObjectController.extend({
+  //needs: ['application'],
+  
+  //viewUserID: function() {
+  //  return this.get('controllers.application.viewUserID');
+  //}.property('controllers.application.viewUserID')
 });
 
 /********
@@ -227,7 +237,35 @@ App.MatchesController = Ember.ArrayController.extend({
 });
 
 App.MatchController = Ember.ObjectController.extend({
-  displayScore: Ember.computed.gte('homeGoals', 0)
+  needs: ['application'],
+  
+  editable: function() {
+    return true;
+  }.property('date'),
+
+  userPoints: function() {
+    //TODO: Calculate
+    return 1;
+  }.property('model', 'homeGoals', 'visitorGoals'),
+
+  homeGoalsDisplay: function() {
+    return (this.get('homeGoals') >= 0) ? this.get('homeGoals') : '-';
+  }.property('homeGoals'),
+
+  visitorGoalsDisplay: function() {
+    return (this.get('visitorGoals') >= 0) ? this.get('visitorGoals') : '-';
+  }.property('visitorGoals'),
+
+  x: function() { 
+    return this.get('prediction.homePrediction');
+  }.property('prediction'),
+
+  prediction: function() {
+    var id = [this.get('controllers.application.viewUserID'),'_',this.get('id')].join('');
+    console.log(id);
+    return this.store.find('prediction', id);
+  }.property('model','controllers.application.viewUserID'),
+
 });
 
 /*******
@@ -237,7 +275,5 @@ App.UserRoute = Ember.Route.extend({
 });
 
 App.UserController = Ember.ObjectController.extend({
-  needs: ["application"]
+  needs: ['application']
 });
-
-
