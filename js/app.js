@@ -161,7 +161,11 @@ App.Match = DS.Model.extend({
   visitorGoals: DS.attr('number'),
   
   matchDate: function() {
-    return moment(this.get('date')).format('MMMM Do, h:mm:ss a');
+    return moment(this.get('date')).format('MMMM Do');
+  }.property('date'),
+
+  matchTime: function() {
+    return moment(this.get('date')).format('h:mm a');
   }.property('date')
 
 });

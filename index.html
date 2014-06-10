@@ -50,7 +50,7 @@
         <table class="table matches">
         {{#each match in matches itemController="match"}}
           <tr>
-            <td class="match-date">{{match.matchDate}}</td>
+            <td class="match-date">{{match.matchDate}} {{match.matchTime}}</td>
             <td class="home-team" {{bind-attr class=match.home.id}}>
               <span class="team">{{match.home.name}}</span>
               <img {{bind-attr src=match.home.flag alt=match.home.id}} class="flag"> 
