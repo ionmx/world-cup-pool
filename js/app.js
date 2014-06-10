@@ -67,11 +67,11 @@ App.AuthController = Ember.Controller.extend({
     this.authClient = new FirebaseSimpleLogin(firebaseRef, function(error, userTwitter) {
       if (error) {
         alert('Authentication failed: ' + error);
-      } else if (userTwitter) {
-       self.set('authed', true);
+      } else if (userTwitter) {  
+        self.set('controllers.application.viewUserID', userTwitter.username);
+        self.set('authed', true);
         self.store.find('user', userTwitter.username).then(function(user) {
           self.set('currentUser', user);
-          self.set('controllers.application.viewUserID', user.id);
         }, function(reason) {
           // Create user...
           var properties = {
@@ -256,15 +256,19 @@ App.MatchController = Ember.ObjectController.extend({
     return (this.get('visitorGoals') >= 0) ? this.get('visitorGoals') : '-';
   }.property('visitorGoals'),
 
-  x: function() { 
-    return this.get('prediction.homePrediction');
-  }.property('prediction'),
-
   prediction: function() {
     var id = [this.get('controllers.application.viewUserID'),'_',this.get('id')].join('');
     console.log(id);
     return this.store.find('prediction', id);
   }.property('model','controllers.application.viewUserID'),
+
+  homePredictionDisplay: function() { 
+    return (this.get('prediction.homePrediction') >= 0) ? this.get('prediction.homePrediction') : '-';
+  }.property('prediction.homePrediction'),
+
+  visitorPredictionDisplay: function() { 
+    return (this.get('prediction.visitorPrediction') >= 0) ? this.get('prediction.visitorPrediction') : '-';
+  }.property('prediction.visitorPrediction'),
 
 });
 

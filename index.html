@@ -74,14 +74,14 @@
             <td class="home-score score">
               {{match.homeGoalsDisplay}}
               {{#if auth.authed}} 
-                <div class="prediction">{{match.prediction.homePrediction}}</div>
+                <div class="prediction">{{match.homePredictionDisplay}}</div>
               {{/if}}
             </td> 
             <td class="vs">-</td> 
             <td class="visitor-score score">
               {{match.visitorGoalsDisplay}}
               {{#if auth.authed}} 
-                <div class="prediction">{{match.prediction.visitorPrediction}}</div>
+                <div class="prediction">{{match.visitorPredictionDisplay}}</div>
               {{/if}}
             </td> 
             <td class="visitor-team" {{bind-attr class=match.visitor.id}}>
