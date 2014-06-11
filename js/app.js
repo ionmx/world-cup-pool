@@ -31,6 +31,15 @@ App.ApplicationRoute = Ember.Route.extend({
     var auth = this.get('auth');
     auth.store = this.get('store');
   }, 
+  renderTemplate: function() {
+    this.render();
+    this.render('users', {
+      into: 'application',
+      outlet: 'ranking',
+      controller: 'Users',
+      model: this.store.find('user')
+    });
+  },
   actions: {
     login: function() {
       this.get('auth').login();
@@ -185,8 +194,6 @@ App.Prediction = DS.Model.extend({
  * Router
  *********/
 App.Router.map(function() {
-  this.resource('teams', { path: '/teams' });
-  this.resource('matches', { path: '/matches' });
   this.resource('user', { path: '/user/:user_id' });
 });
 
@@ -201,35 +208,9 @@ App.IndexRoute = Ember.Route.extend({
   }
 });
 
-/********
- * Teams
- ********/
-App.TeamsRoute = Ember.Route.extend({
-  model: function() {
-    return this.store.findAll('team');
-  }
-});
-
-App.TeamsController = Ember.ArrayController.extend({
-  sortProperties: ['group, name'],
-  sortAscending: true
-});
-
 /**********
  * Matches
  **********/
-App.MatchesRoute = Ember.Route.extend({
-  model: function() {
-    return this.store.findAll('match');
-  }
-});
-
-App.MatchesController = Ember.ArrayController.extend({
-  sortProperties: ['date'],
-  sortAscending: true,
-  itemController: 'match'
-});
-
 App.MatchController = Ember.ObjectController.extend({
   needs: ['application'],
   
@@ -300,4 +281,8 @@ App.UserController = Ember.ObjectController.extend({
   matches: function() {
     return this.store.find('match');
   }.property('model')
+});
+
+App.UsersController = Ember.ArrayController.extend({
+  itemController: 'user',
 });
