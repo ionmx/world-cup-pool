@@ -90,8 +90,9 @@ App.AuthController = Ember.Controller.extend({
                 console.log(m.id);
                 var predProperties = {
                   'id': [u.id, '_', m.id].join(''),
-                  'homePrediction': -1,
-                  'visitorPrediction': -1,
+                  'date': new Date().getTime(),
+                  'homePrediction': null,
+                  'visitorPrediction': null,
                 };
                 var p = self.store.createRecord('prediction', predProperties);
                 p.save().then(function() {
@@ -174,6 +175,7 @@ App.Match = DS.Model.extend({
 });
 
 App.Prediction = DS.Model.extend({
+  date:              DS.attr('number'),
   user:              DS.belongsTo('user', { async: true }),
   homePrediction:    DS.attr('number'),
   visitorPrediction: DS.attr('number'),
@@ -233,8 +235,9 @@ App.MatchController = Ember.ObjectController.extend({
   
   editable: function() {
     // 86400000
-    return true;
-  }.property('date'),
+    return (this.get('auth.authed')) && 
+           (this.get('controllers.application.viewUserID') == this.get('auth.currentUser.id'));
+  }.property('date', 'controllers.application.viewUserID', 'auth.currentUser'),
 
   userPoints: function() {
     //TODO: Calculate
@@ -242,11 +245,11 @@ App.MatchController = Ember.ObjectController.extend({
   }.property('model', 'homeGoals', 'visitorGoals'),
 
   homeGoalsDisplay: function() {
-    return (this.get('homeGoals') >= 0) ? this.get('homeGoals') : '-';
+    return (this.get('homeGoals') >= 0) ? this.get('homeGoals') : '';
   }.property('homeGoals'),
 
   visitorGoalsDisplay: function() {
-    return (this.get('visitorGoals') >= 0) ? this.get('visitorGoals') : '-';
+    return (this.get('visitorGoals') >= 0) ? this.get('visitorGoals') : '';
   }.property('visitorGoals'),
 
   prediction: function() {
@@ -261,6 +264,24 @@ App.MatchController = Ember.ObjectController.extend({
   visitorPredictionDisplay: function() { 
     return (this.get('prediction.visitorPrediction') >= 0) ? this.get('prediction.visitorPrediction') : '-';
   }.property('prediction.visitorPrediction'),
+
+  actions: {
+    updatePrediction: function(goals) {
+      this.get('prediction').then(function(prediction) {
+        prediction.set('date', new Date().getTime());
+        prediction.save().then(
+          // Success
+          function() {
+            console.log('Prediction ' + prediction.get('id') + ' updated');
+          },
+          // Fail
+          function() {
+            alert('Error');
+          } 
+        );
+      });
+    }
+  }
 
 });
 

@@ -66,15 +66,27 @@
             </td>
             <td class="home-score score">
               {{match.homeGoalsDisplay}}
-              {{#if auth.authed}} 
-                <div class="prediction">{{match.homePredictionDisplay}}</div>
+              {{#if user}} 
+                <div class="prediction">
+                  {{#if match.editable}}
+                    {{input type="number" value=match.prediction.homePrediction insert-newline="updatePrediction" class="form-control"}}
+                  {{else}}
+                    {{match.homePredictionDisplay}}
+                  {{/if}} 
+                </div>
               {{/if}}
             </td> 
             <td class="vs">-</td> 
             <td class="visitor-score score">
               {{match.visitorGoalsDisplay}}
-              {{#if auth.authed}} 
-                <div class="prediction">{{match.visitorPredictionDisplay}}</div>
+              {{#if user}} 
+                <div class="prediction">
+                  {{#if match.editable}}
+                    {{input type="number" value=match.prediction.visitorPrediction insert-newline="updatePrediction" class="form-control"}}
+                  {{else}}
+                    {{match.visitorPredictionDisplay}}
+                  {{/if}} 
+                </div>
               {{/if}}
             </td> 
             <td class="visitor-team" {{bind-attr class=match.visitor.id}}>
@@ -82,7 +94,7 @@
               <span class="team">{{match.visitor.name}}</span>
             </td>
             <td class="points">
-              {{#if auth.authed}} 
+              {{#if user}} 
                 {{match.userPoints}}</div>
               {{/if}}
             </td>
@@ -118,7 +130,7 @@
       <img {{bind-attr src=model.avatarUrl alt=model.id}} class="avatar img-circle">
       {{model.name}}
     </h1>
-    {{matches-table matches=controller.matches}}
+    {{matches-table matches=controller.matches user=model}}
   </script>
 
 

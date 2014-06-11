@@ -26,11 +26,27 @@ table.matches tr td {
 .score {
   font-weight: bold;
   font-size: 20px;
+  text-align: center;
+  color: #069;
 }
 .score .glyphicon {
   font-size: 16px;
   color: #777;
 }
+
+.prediction {
+  font-size: 16px;
+  text-align: center;
+  color: #000;
+}
+
+.prediction input {
+  text-align: center;
+  font-size: 14px;
+  width: 48px;
+  padding: 2px;
+}
+
 .vs {
   color: #eee;
 }
