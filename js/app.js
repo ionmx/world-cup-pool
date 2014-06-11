@@ -220,10 +220,37 @@ App.MatchController = Ember.ObjectController.extend({
            (this.get('controllers.application.viewUserID') == this.get('auth.currentUser.id'));
   }.property('date', 'controllers.application.viewUserID', 'auth.currentUser'),
 
+  getWinner: function(home, visitor) {
+    if (home > visitor) {
+      winner = 'home';
+    } else if (home < visitor) {
+      winner = 'visitor';
+    } else {
+      winner = 'tied';
+    }
+  },
+
   userPoints: function() {
-    //TODO: Calculate
-    return 1;
-  }.property('model', 'homeGoals', 'visitorGoals'),
+    var points = 0,
+        home              = this.get('homeGoals'),
+        visitor           = this.get('visitorGoals');
+
+   if (home < 0) { return 0; }
+
+    var homePrediction    = this.get('prediction.homePrediction'),
+        visitorPrediction = this.get('prediction.visitorPrediction'),
+        winnerPrediction  = this.getWinner(homePrediction, visitorPrediction),
+        winner            = this.getWinner(home, visitor);
+
+    if ( (home == homePrediction) && (visitor == visitorPrediction) ) {
+      points = 15;
+    } else if (winner == winnerPrediction) {
+      points = 10 - Math.abs(homePrediction - home) - Math.abs(visitorPrediction - visitor);
+      if (points < 0) { points = 0; }
+    }
+
+    return points;
+  }.property('model', 'homeGoals', 'visitorGoals', 'prediction.homePrediction', 'prediction.visitorPrediction'),
 
   homeGoalsDisplay: function() {
     return (this.get('homeGoals') >= 0) ? this.get('homeGoals') : '';
