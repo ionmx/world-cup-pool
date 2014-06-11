@@ -44,10 +44,6 @@
     {{matches-table matches=matches}}
   </script>
 
-  <script type="text/x-handlebars" data-template-name="prediction">
-    {{prediction}}
-  </script>
-
   <script type="text/x-handlebars" id="components/matches-table"> 
     <div class="row">
       <div class="col-md-8">
@@ -56,10 +52,7 @@
           <tr>
             <th>Date</th>
             <th colspan="5">
-              Score
-              {{#if auth.authed}} 
-               /Prediction
-              {{/if}}
+              Score/Prediction
             </th>
             <th>Points</th>
           </tr>
@@ -125,11 +118,7 @@
       <img {{bind-attr src=model.avatarUrl alt=model.id}} class="avatar img-circle">
       {{model.name}}
     </h1>
-    Model predictions {{model.predictions}}
-    {{#each p in model.predictions}}
-      ID: {{p.id}}
-    {{/each}}
-    {{matches-table matches=controllers.application.matchesCache user=model}}
+    {{matches-table matches=controller.matches}}
   </script>
 
 

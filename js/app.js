@@ -199,14 +199,6 @@ App.IndexRoute = Ember.Route.extend({
   }
 });
 
-App.XIndexController = Ember.ObjectController.extend({
-  //needs: ['application'],
-  
-  //viewUserID: function() {
-  //  return this.get('controllers.application.viewUserID');
-  //}.property('controllers.application.viewUserID')
-});
-
 /********
  * Teams
  ********/
@@ -240,6 +232,7 @@ App.MatchController = Ember.ObjectController.extend({
   needs: ['application'],
   
   editable: function() {
+    // 86400000
     return true;
   }.property('date'),
 
@@ -258,7 +251,6 @@ App.MatchController = Ember.ObjectController.extend({
 
   prediction: function() {
     var id = [this.get('controllers.application.viewUserID'),'_',this.get('id')].join('');
-    console.log(id);
     return this.store.find('prediction', id);
   }.property('model','controllers.application.viewUserID'),
 
@@ -276,8 +268,15 @@ App.MatchController = Ember.ObjectController.extend({
  * User 
  *******/
 App.UserRoute = Ember.Route.extend({
+  setupController: function(controller, model) {
+    controller.set('model', model);
+    this.controllerFor('application').set('viewUserID', model.get('id'));
+  }
 });
 
 App.UserController = Ember.ObjectController.extend({
-  needs: ['application']
+  needs: ['application'],
+  matches: function() {
+    return this.store.find('match');
+  }.property('model')
 });
