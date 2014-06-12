@@ -135,6 +135,10 @@ table.matches tr td {
   color: #fafafa;
 }
 
+.ranking-user.active td {
+  background: #0ac;
+}
+
 .ranking-user {
   color: #fafafa;
   cursor: pointer;
