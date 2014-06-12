@@ -154,6 +154,7 @@
     <h1>
       <img {{bind-attr src=model.avatarUrl alt=controller.id}} class="avatar img-circle">
       {{controller.name}}
+      <a {{bind-attr href=controller.twitterUrl}} target="_blank"><img src="img/twitter.png"></a>
       <span class="label totalpoints">
         Score: {{controller.score}}
       </span>

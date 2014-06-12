@@ -143,6 +143,9 @@ App.User = DS.Model.extend({
   avatarUrl:    DS.attr('string'),
   score:        DS.attr('number'),
   predictions:  DS.hasMany('prediction', { inverse: 'user', async: true }), 
+  twitterUrl: function() {
+    return 'http://twitter.com/' + this.get('id');
+  }.property()
 });
 
 App.Team = DS.Model.extend({
