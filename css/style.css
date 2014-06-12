@@ -186,3 +186,10 @@ table.matches tr td {
 #fork a {
   color: #8ef;
 }
+
+.totalpoints {
+  float: right;
+  font-size: 28px;
+  background: #0bd;
+  color: #fff;
+}

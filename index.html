@@ -84,8 +84,6 @@
                   {{match.homePredictionDisplay}}
                 {{/if}}
               </div>
-            {{else}}
-              {{input value=match.homeGoals insert-newline="updateGoals" focus-out="updateGoals" class="form-control"}}  
             {{/if}}
           </td>
           <td class="mid-cell">
@@ -103,8 +101,6 @@
                   {{match.visitorPredictionDisplay}}
                 {{/if}}
               </div>
-            {{else}}
-              {{input value=match.visitorGoals insert-newline="updateGoals" focus-out="updateGoals" class="form-control"}}  
             {{/if}}
           </td>
           <td class="visitor-team" {{bind-attr class=match.visitor.id}}>
@@ -134,14 +130,13 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="matches">
-    <h1>Matches</h1>
     {{matches-table matches=model}}
   </script>
 
   <script type="text/x-handlebars" data-template-name="users">
     <div id="ranking-header">High Scores</div>
     <table id="ranking">
-      {{#each user in model itemController="user"}}
+      {{#each user in controller}}
         {{#link-to 'user' user tagName="tr" classNames="ranking-user"}}
           <td class="username">
             <img {{bind-attr src=user.avatarUrl alt=user.id}} class="avatar img-circle">
@@ -157,10 +152,13 @@
 
   <script type="text/x-handlebars" data-template-name="user">
     <h1>
-      <img {{bind-attr src=model.avatarUrl alt=model.id}} class="avatar img-circle">
-      {{model.name}}
-      {{model.score}}
+      <img {{bind-attr src=model.avatarUrl alt=controller.id}} class="avatar img-circle">
+      {{controller.name}}
+      <span class="label totalpoints">
+        Score: {{controller.score}}
+      </span>
     </h1>
+
     {{matches-table matches=controller.matches user=model}}
   </script>
 
