@@ -1,9 +1,31 @@
 /*********
  * Utils
  *********/
-function calculateScore(match, prediction) {
-  // TODO: Calculate this.
-  return 1;
+function getWinner(home, visitor) {
+  if (home > visitor) {
+    winner = 'home';
+  } else if (home < visitor) {
+    winner = 'visitor';
+  } else {
+    winner = 'tied';
+  }
+  return winner;
+}
+
+function getScore(home, visitor, homePrediction, visitorPrediction) {
+  var points = 0;
+  if (home > 0) {
+    if ( (home == homePrediction) && (visitor == visitorPrediction) ) {
+      points = 15;
+    } else if (getWinner(home, visitor) == getWinner(homePrediction, visitorPrediction)) {
+      points = 10 - Math.abs(homePrediction - home) - Math.abs(visitorPrediction - visitor);
+      if (points < 0) { points = 0; }
+    }
+  }
+  if (isNaN(points)) {
+    points = 0;
+  }
+  return points;
 }
 
 /******
@@ -144,18 +166,13 @@ App.User = DS.Model.extend({
   name:         DS.attr('string'),
   displayName:  DS.attr('string'),
   avatarUrl:    DS.attr('string'),
+  score:        DS.attr('number'),
   predictions:  DS.hasMany('prediction', { inverse: 'user', async: true }),
- 
-  //score: function(){
-  //  var preds = this.get('predictions');
-  //  var ret = 0;
-  //  preds.forEach(function(p){
-  //    // TODO: Add rules
-  //    ret += calculateScore(match, p);
-  //  });
-  //  return ret;
-  //}.property('predictions.@each.homePrediction', 'predictions.@each.visitorPrediction')
 
+  matches: function() {
+    return this.store.find('match');
+  }.property('model'),
+  
 });
 
 App.Team = DS.Model.extend({
@@ -181,7 +198,7 @@ App.Match = DS.Model.extend({
 
   matchTime: function() {
     return moment(this.get('date')).format('h:mm a');
-  }.property('date')
+  }.property('date'),
 
 });
 
@@ -219,42 +236,21 @@ App.MatchController = Ember.ObjectController.extend({
   editable: function() {
     var msBefore = 7200000;  // Two hours before
     var now = new Date().getTime();
-    console.log(this.get('date') - now);
     return (this.get('auth.authed')) && 
            ( (this.get('date') - now > msBefore) ) &&
            (this.get('controllers.application.viewUserID') == this.get('auth.currentUser.id'));
   }.property('date', 'controllers.application.viewUserID', 'auth.currentUser'),
 
-  getWinner: function(home, visitor) {
-    if (home > visitor) {
-      winner = 'home';
-    } else if (home < visitor) {
-      winner = 'visitor';
-    } else {
-      winner = 'tied';
-    }
-  },
+  prediction: function() {
+    var id = [this.get('controllers.application.viewUserID'),'_',this.get('id')].join('');
+    return this.store.find('prediction', id);
+  }.property('model','controllers.application.viewUserID'),
 
   userPoints: function() {
-    var points = 0,
-        home              = this.get('homeGoals'),
-        visitor           = this.get('visitorGoals');
-
-   if (home < 0) { return 0; }
-
-    var homePrediction    = this.get('prediction.homePrediction'),
-        visitorPrediction = this.get('prediction.visitorPrediction'),
-        winnerPrediction  = this.getWinner(homePrediction, visitorPrediction),
-        winner            = this.getWinner(home, visitor);
-
-    if ( (home == homePrediction) && (visitor == visitorPrediction) ) {
-      points = 15;
-    } else if (winner == winnerPrediction) {
-      points = 10 - Math.abs(homePrediction - home) - Math.abs(visitorPrediction - visitor);
-      if (points < 0) { points = 0; }
-    }
-
-    return points;
+    return getScore(this.get('homeGoals'), 
+                    this.get('visitorGoals'), 
+                    this.get('prediction.homePrediction'), 
+                    this.get('prediction.visitorPrediction'));
   }.property('model', 'homeGoals', 'visitorGoals', 'prediction.homePrediction', 'prediction.visitorPrediction'),
 
   homeGoalsDisplay: function() {
@@ -265,11 +261,6 @@ App.MatchController = Ember.ObjectController.extend({
     return (this.get('visitorGoals') >= 0) ? this.get('visitorGoals') : '';
   }.property('visitorGoals'),
 
-  prediction: function() {
-    var id = [this.get('controllers.application.viewUserID'),'_',this.get('id')].join('');
-    return this.store.find('prediction', id);
-  }.property('model','controllers.application.viewUserID'),
-
   homePredictionDisplay: function() { 
     return (this.get('prediction.homePrediction') >= 0) ? this.get('prediction.homePrediction') : '-';
   }.property('prediction.homePrediction'),
@@ -279,6 +270,50 @@ App.MatchController = Ember.ObjectController.extend({
   }.property('prediction.visitorPrediction'),
 
   actions: {
+    updateGoals: function(goals) {
+      var total = 0;
+      var now = new Date().getTime();
+      var m = this.get('model');
+      m.save();
+
+      
+      self = this;
+      // UPDATE PREDICTIONS
+      this.store.find('match').then(function(matches) {
+
+        self.store.find('user').then(function(users) {
+          users.forEach(function(u) {
+            u.get('predictions').then(function(preds) {
+              total = 0;
+              preds.forEach(function(p){
+                aux = p.get('id').split('_');
+                match_id = aux[aux.length-1];
+                matches.forEach(function(m) {
+                  var score = 0;
+                  if (m.get('id') == match_id) {
+                    score = getScore(m.get('homeGoals'), m.get('visitorGoals'), p.get('homePrediction'), p.get('visitorPrediction'));
+                  }
+                  total += score;
+
+                }); // matches loop
+
+                
+              }); // preds loop
+              console.log('SCORE', u.get('id'), total);
+              u.set('score', total);
+              u.save();
+              
+
+            });  // preds find
+
+
+          }); // users loop 
+          
+        }); // users find
+
+      }); // matches find
+
+    },
     updatePrediction: function(goals) {
       this.get('prediction').then(function(prediction) {
         prediction.set('date', new Date().getTime());
@@ -310,9 +345,7 @@ App.UserRoute = Ember.Route.extend({
 
 App.UserController = Ember.ObjectController.extend({
   needs: ['application'],
-  matches: function() {
-    return this.store.find('match');
-  }.property('model')
+
 });
 
 App.UsersController = Ember.ArrayController.extend({
