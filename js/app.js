@@ -187,7 +187,6 @@ App.Prediction = DS.Model.extend({
  *********/
 App.Router.map(function() {
   this.resource('user', { path: '/user/:user_id' });
-  this.resource('users', { path: '/users' });
 });
 
 /********

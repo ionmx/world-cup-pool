@@ -117,18 +117,6 @@
     </table>
   </script>
 
-  <script type="text/x-handlebars" data-template-name="teams">
-    <h2>Teams</h2>
-    <ul>
-    {{#each team in model}}
-      <li>
-        <img {{bind-attr src=team.flag alt=team.code}} class="flag">
-        {{team.name}}
-      </li>
-    {{/each}}
-    </ul>
-  </script>
-
   <script type="text/x-handlebars" data-template-name="matches">
     {{matches-table matches=model}}
   </script>
