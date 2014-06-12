@@ -60,7 +60,7 @@
             {{#if user}} 
               <div class="prediction">
                 {{#if match.editable}}
-                  {{input type="number" value=match.prediction.homePrediction insert-newline="updatePrediction" class="form-control"}}
+                  {{input type="number" value=match.prediction.homePrediction insert-newline="updatePrediction" focus-out="updatePrediction" class="form-control"}}
                 {{else}}
                   {{match.homePredictionDisplay}}
                 {{/if}} 
@@ -77,7 +77,7 @@
             {{#if user}} 
               <div class="prediction">
                 {{#if match.editable}}
-                  {{input type="number" value=match.prediction.visitorPrediction insert-newline="updatePrediction" class="form-control"}}
+                  {{input type="number" value=match.prediction.visitorPrediction insert-newline="updatePrediction" focus-out="updatePrediction" class="form-control"}}
                 {{else}}
                   {{match.visitorPredictionDisplay}}
                 {{/if}} 
