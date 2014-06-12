@@ -96,6 +96,7 @@ table.matches tr td {
   color: #0b0;
 }
 
+#rules-header, 
 #ranking-header {
   font-size: 16px;
   text-transform: uppercase;
@@ -103,6 +104,26 @@ table.matches tr td {
   color: #8ef;
   text-align: center;
   padding: 10px;
+}
+
+.rules {
+  color: #fafafa;
+  border-bottom: 1px solid #0ac;
+  padding: 0px 20px 20px 0px;
+}
+
+.rules ul {
+  margin: 0;
+}
+
+.example {
+  font-size: 90%;
+  padding: 10px;
+  color: #f0f0f0;
+}
+.operation {
+  color: #ddd;
+  font-size: 90%;
 }
 
 #ranking {

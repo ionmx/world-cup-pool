@@ -19,6 +19,22 @@
           <button class="btn btn-primary btn-block" {{ action login }}>Sign in with Twitter</button>
         {{/if}}
       </div>
+
+      <div id="rules-header">Scoring</div>
+      <div class="rules">
+      <ul>
+        <li>Exact score = 15 points</li>
+        <li>Winner prediction = 10 points - goals difference.<br/>
+            <div class="example">
+            Example:<br/>
+            Score: Brazil 3 - 1 Croatia<br/>
+            Your prediction: Brazil 2 - 0 Croatia <br/>
+            Points: 8 <span class="operation">10 - (3 - 2) - (1 - 0)</span>
+            </div>
+        </li>
+      </ul>
+      </div>
+
       {{outlet ranking}}
       <div id="fork">
         <a href="https://github.com/ionmx/world-cup-pool">Fork me on GitHub</a>
