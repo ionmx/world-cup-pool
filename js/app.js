@@ -1,9 +1,31 @@
 /*********
  * Utils
  *********/
-function calculateScore(match, prediction) {
-  // TODO: Calculate this.
-  return 1;
+function getWinner(home, visitor) {
+  if (home > visitor) {
+    winner = 'home';
+  } else if (home < visitor) {
+    winner = 'visitor';
+  } else {
+    winner = 'tied';
+  }
+  return winner;
+}
+
+function getScore(home, visitor, homePrediction, visitorPrediction) {
+  var points = 0;
+  if (home > 0) {
+    if ( (home == homePrediction) && (visitor == visitorPrediction) ) {
+      points = 15;
+    } else if (getWinner(home, visitor) == getWinner(homePrediction, visitorPrediction)) {
+      points = 10 - Math.abs(homePrediction - home) - Math.abs(visitorPrediction - visitor);
+      if (points < 0) { points = 0; }
+    }
+  }
+  if (isNaN(points)) {
+    points = 0;
+  }
+  return points;
 }
 
 /******
@@ -223,27 +245,12 @@ App.MatchController = Ember.ObjectController.extend({
       winner = 'tied';
     }
   },
-
+  
   userPoints: function() {
-    var points = 0,
-        home              = this.get('homeGoals'),
-        visitor           = this.get('visitorGoals');
-
-   if (home < 0) { return 0; }
-
-    var homePrediction    = this.get('prediction.homePrediction'),
-        visitorPrediction = this.get('prediction.visitorPrediction'),
-        winnerPrediction  = this.getWinner(homePrediction, visitorPrediction),
-        winner            = this.getWinner(home, visitor);
-
-    if ( (home == homePrediction) && (visitor == visitorPrediction) ) {
-      points = 15;
-    } else if (winner == winnerPrediction) {
-      points = 10 - Math.abs(homePrediction - home) - Math.abs(visitorPrediction - visitor);
-      if (points < 0) { points = 0; }
-    }
-
-    return points;
+    return getScore(this.get('homeGoals'),
+                    this.get('visitorGoals'),
+                    this.get('prediction.homePrediction'),
+                    this.get('prediction.visitorPrediction'));
   }.property('model', 'homeGoals', 'visitorGoals', 'prediction.homePrediction', 'prediction.visitorPrediction'),
 
   homeGoalsDisplay: function() {
