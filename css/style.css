@@ -1,13 +1,35 @@
+#sidebar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 280px;
+  overflow: auto;
+  background: #0bd;
+}
+
+#workarea {
+  position: absolute;
+  top: 0;
+  left: 280px;
+  bottom: 0;
+  width: -moz-calc(100% - 280px);
+  width: calc(100% - 280px);
+  padding: 20px;
+  overflow: auto;
+}
+
 table.matches {
-  border: 1px solid #ddd;
 }
 
 table.matches tr th {
   text-align: center;
+  background: #ec1;
+  border-bottom: 2px solid #0bd;
 }
 
 table.matches tr td {
   vertical-align: middle;
+  border-bottom: 1px solid #dadada;
 }
 .match-date {
   font-size: 11px;
@@ -36,6 +58,7 @@ table.matches tr td {
   font-size: 20px;
   text-align: center;
   color: #069;
+  width: 52px;
 }
 .score .glyphicon {
   font-size: 16px;
@@ -46,6 +69,7 @@ table.matches tr td {
   font-size: 16px;
   text-align: center;
   color: #000;
+  margin: 0 auto;
 }
 
 .prediction input {
@@ -55,17 +79,89 @@ table.matches tr td {
   padding: 2px;
 }
 
-.vs {
+.mid-cell {
   color: #eee;
+  text-align: center;
+}
+
+.vs {
+  text-align: center;
+  font-size: 20px;
+}
+
+.points {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: #0b0;
+}
+
+#ranking-header {
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #8ef;
+  text-align: center;
+  padding: 10px;
 }
 
 #ranking {
+  width: 100%;
+}
+
+.ranking-user td {
+  padding: 10px 20px;
+  color: #fafafa;
 }
 
 .ranking-user {
-  
+  color: #fafafa;
+  cursor: pointer;
 }
 
 .ranking-user img {
   width: 32px;
+}
+
+.ranking-user .userpoints {
+  width: 64px;
+  text-align: center;
+}
+
+#userbox {
+  background: #0bd url(../img/logo.png) top center no-repeat;
+  padding: 160px 20px 10px 20px;
+  border-bottom: 1px solid #0ac;
+}
+
+#userbox h3 {
+  font-size: 22px;
+  color: #fff;
+}
+
+#userbox h3 .logout-link {
+  cursor: pointer;
+  float: right;
+  color: #fafafa;
+  font-weight: normal;
+  font-size: 11px;
+  padding-top: 14px;
+}
+
+.current-user {
+  cursor: pointer;
+}
+
+#fork {
+  border-top: 1px solid #0ac;
+  margin-top: 90px;
+  background: transparent url(../img/github.png) center 20px no-repeat;
+  padding: 60px 20px;
+  font-size: 12px;
+  text-align: center;
+  color: #8ef;
+}
+
+#fork a {
+  color: #8ef;
 }

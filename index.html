@@ -7,22 +7,26 @@
 </head>
 <body>
   <script type="text/x-handlebars" data-template-name="application">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-8">
-          {{outlet}}
-        </div>
-      
-        <div class="col-md-3">
-          {{#if auth.authed }}
+    <div id="sidebar">
+      <div id="userbox"> 
+        {{#if auth.authed }}
+          {{#link-to 'user' auth.currentUser tagName="h3" classNames="current-user"}}
+            <img {{bind-attr src=auth.currentUser.avatarUrl alt=model.id}} class="avatar img-circle">
             {{ auth.currentUser.name }}
-            <a {{ action logout }}>Logout</a>
-          {{else}}
-            <button class="btn btn-success" {{ action login }}>Sign in</button>
-          {{/if}}
-          {{outlet ranking}}
-        </div>
+            <a class="logout-link" {{ action logout }}>Sign out</span></a>
+          {{/link-to}}
+        {{else}}
+          <button class="btn btn-primary btn-block" {{ action login }}>Sign in with Twitter</button>
+        {{/if}}
       </div>
+      {{outlet ranking}}
+      <div id="fork">
+        <a href="https://github.com/ionmx/world-cup-pool">Fork me on GitHub</a>
+      </div>
+    </div>
+
+    <div id="workarea">
+      {{outlet}}
     </div>
   </script>
 
@@ -34,9 +38,11 @@
     <table class="table matches">
       <thead>
         <tr>
-          <th>Date</th>
           <th colspan="5">
-            Score/Prediction
+            Score
+            {{#if user}}
+            /Prediction
+            {{/if}}
           </th>
           {{#if user}} 
             <th>Points</th>
@@ -45,7 +51,6 @@
       </thead>
       {{#each match in matches itemController="match"}}
         <tr>
-          <td class="match-date">{{match.matchDate}} {{match.matchTime}}</td>
           <td class="home-team" {{bind-attr class=match.home.id}}>
             <span class="team">{{match.home.name}}</span>
             <img {{bind-attr src=match.home.flag alt=match.home.id}} class="flag"> 
@@ -62,7 +67,11 @@
               </div>
             {{/if}}
           </td> 
-          <td class="vs">-</td> 
+          <td class="mid-cell">
+            <div class="match-date">{{match.matchDate}}</div>
+            <div class="vs">-</div>
+            <div class="match-date">{{match.matchTime}}</div>
+          </td> 
           <td class="visitor-score score">
             {{match.visitorGoalsDisplay}}
             {{#if user}} 
@@ -106,16 +115,20 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="users">
-    <div id="ranking">
+    <div id="ranking-header">High Scores</div>
+    <table id="ranking">
       {{#each user in model}}
-        <div class="ranking-user">
-          {{#link-to 'user' user}}
+        {{#link-to 'user' user tagName="tr" classNames="ranking-user"}}
+          <td class="username">
             <img {{bind-attr src=user.avatarUrl alt=user.id}} class="avatar img-circle">
             {{user.name}}
-          {{/link-to}}
-        </div>
+          </td>
+          <td class="userpoints">
+            -
+          </td>
+        {{/link-to}}
       {{/each}}
-    </div>
+    </table>
   </script>
 
   <script type="text/x-handlebars" data-template-name="user">

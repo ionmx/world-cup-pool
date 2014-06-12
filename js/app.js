@@ -215,8 +215,11 @@ App.MatchController = Ember.ObjectController.extend({
   needs: ['application'],
   
   editable: function() {
-    // 86400000
+    var msBefore = 7200000;  // Two hours before
+    var now = new Date().getTime();
+    console.log(this.get('date') - now);
     return (this.get('auth.authed')) && 
+           ( (this.get('date') - now > msBefore) ) &&
            (this.get('controllers.application.viewUserID') == this.get('auth.currentUser.id'));
   }.property('date', 'controllers.application.viewUserID', 'auth.currentUser'),
 
