@@ -117,7 +117,7 @@ App.AuthController = Ember.Controller.extend({
 
         });
 
-        self.get('controllers.application').transitionToRoute('user', self.get('currentUser'));
+        //self.get('controllers.application').transitionToRoute('user', self.get('currentUser'));
 
       } else {
         this.set('authed', false);
