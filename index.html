@@ -77,7 +77,7 @@
             {{#if user}}
               <div class="prediction">
                 {{#if match.editable}}
-                  {{input type="number" min=0 value=match.prediction.visitorPrediction insert-newline="updatePrediction" class="form-control"}}
+                  {{input type="number" min=0 value=match.prediction.visitorPrediction insert-newline="updatePrediction" focus-out="updatePrediction" class="form-control"}}
                 {{else}}
                   {{match.visitorPredictionDisplay}}
                 {{/if}}
