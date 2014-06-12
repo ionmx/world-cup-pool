@@ -15,6 +15,9 @@
             {{ auth.currentUser.name }}
             <a class="logout-link" {{ action logout }}>Sign out</span></a>
           {{/link-to}}
+          {{#link-to 'user' auth.currentUser tagName="button" classNames="btn btn-success btn-block"}}
+          Make your predictions
+          {{/link-to}}
         {{else}}
           <button class="btn btn-primary btn-block" {{ action login }}>Sign in with Twitter</button>
         {{/if}}
