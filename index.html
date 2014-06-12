@@ -8,7 +8,7 @@
 <body>
   <script type="text/x-handlebars" data-template-name="application">
     <div id="sidebar">
-      <div id="userbox"> 
+      <div id="userbox">
         {{#if auth.authed }}
           {{#link-to 'user' auth.currentUser tagName="h3" classNames="current-user"}}
             <img {{bind-attr src=auth.currentUser.avatarUrl alt=model.id}} class="avatar img-circle">
@@ -34,7 +34,7 @@
     {{matches-table matches=matches}}
   </script>
 
-  <script type="text/x-handlebars" id="components/matches-table"> 
+  <script type="text/x-handlebars" id="components/matches-table">
     <table class="table matches">
       <thead>
         <tr>
@@ -44,7 +44,7 @@
             /Prediction
             {{/if}}
           </th>
-          {{#if user}} 
+          {{#if user}}
             <th>Points</th>
           {{/if}}
         </tr>
@@ -53,42 +53,42 @@
         <tr>
           <td class="home-team" {{bind-attr class=match.home.id}}>
             <span class="team">{{match.home.name}}</span>
-            <img {{bind-attr src=match.home.flag alt=match.home.id}} class="flag"> 
+            <img {{bind-attr src=match.home.flag alt=match.home.id}} class="flag">
           </td>
           <td class="home-score score">
             {{match.homeGoalsDisplay}}
-            {{#if user}} 
+            {{#if user}}
               <div class="prediction">
                 {{#if match.editable}}
-                  {{input type="number" value=match.prediction.homePrediction insert-newline="updatePrediction" focus-out="updatePrediction" class="form-control"}}
+                  {{input type="number" min=0 value=match.prediction.homePrediction insert-newline="updatePrediction" class="form-control"}}
                 {{else}}
                   {{match.homePredictionDisplay}}
-                {{/if}} 
+                {{/if}}
               </div>
             {{/if}}
-          </td> 
+          </td>
           <td class="mid-cell">
             <div class="match-date">{{match.matchDate}}</div>
             <div class="vs">-</div>
             <div class="match-date">{{match.matchTime}}</div>
-          </td> 
+          </td>
           <td class="visitor-score score">
             {{match.visitorGoalsDisplay}}
-            {{#if user}} 
+            {{#if user}}
               <div class="prediction">
                 {{#if match.editable}}
-                  {{input type="number" value=match.prediction.visitorPrediction insert-newline="updatePrediction" focus-out="updatePrediction" class="form-control"}}
+                  {{input type="number" min=0 value=match.prediction.visitorPrediction insert-newline="updatePrediction" focus-out="updatePrediction" class="form-control"}}
                 {{else}}
                   {{match.visitorPredictionDisplay}}
-                {{/if}} 
+                {{/if}}
               </div>
             {{/if}}
-          </td> 
+          </td>
           <td class="visitor-team" {{bind-attr class=match.visitor.id}}>
-            <img {{bind-attr src=match.visitor.flag alt=match.visitor.id}} class="flag"> 
+            <img {{bind-attr src=match.visitor.flag alt=match.visitor.id}} class="flag">
             <span class="team">{{match.visitor.name}}</span>
           </td>
-          {{#if user}} 
+          {{#if user}}
             <td class="points">
               {{match.userPoints}}</div>
             </td>
@@ -97,7 +97,7 @@
       {{/each}}
     </table>
   </script>
-  
+
   <script type="text/x-handlebars" data-template-name="teams">
     <h2>Teams</h2>
     <ul>
