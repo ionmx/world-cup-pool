@@ -8,7 +8,7 @@ require 'firebase'
 # Utils
 #########
 
-def getWinner(home, visitor) 
+def getWinner(home, visitor)
   if home > visitor
     winner = 'home'
   elsif home < visitor
@@ -18,7 +18,7 @@ def getWinner(home, visitor)
   end
 end
 
-def getScore(home, visitor, homePrediction, visitorPrediction) 
+def getScore(home, visitor, homePrediction, visitorPrediction)
   points = 0
 
   if home > 0 && !homePrediction.nil? && !visitorPrediction.nil?
@@ -26,7 +26,7 @@ def getScore(home, visitor, homePrediction, visitorPrediction)
       points = 15;
     elsif getWinner(home, visitor) == getWinner(homePrediction, visitorPrediction)
       points = 10 - (homePrediction - home).abs - (visitorPrediction - visitor).abs
-      if points < 0 
+      if points < 0
         points = 0
       end
     else
@@ -73,19 +73,19 @@ matchesFB = firebase.get('matches')
 #------------------------------
 puts " Create matches array..."
 #------------------------------
-matchesFB.body.each do |m|
+matchesFB.body.each_with_index do |m, index|
   if !m.nil?
     key = "#{m['home']}_#{m['visitor']}"
     json['Events'].each do |e|
       if !e['HomeAbbrev'].nil?
         e_key = "#{e['HomeAbbrev'].downcase}_#{e['AwayAbbrev'].downcase}"
-        if key == e_key 
+        if key == e_key
           m['homeReal'] = e['HomeScore']
           m['visitorReal'] = e['AwayScore']
         end
       end
     end
-    matches[m['mid']] = m
+    matches[index] = m
   end
 end
 
@@ -93,16 +93,16 @@ end
 puts " Update matches..."
 #--------------------------
 matches.each do |k, m|
-  if !m['homeReal'].nil? &&  
+  if !m['homeReal'].nil? &&
      !m['visitorReal'].nil? &&
-     (m['homeReal'].to_i != m['homeGoals'].to_i || 
+     (m['homeReal'].to_i != m['homeGoals'].to_i ||
       m['visitorReal'].to_i != m['visitorGoals'].to_i)
-    
+
    puts " Update #{m['home']} vs. #{m['visitor']} from #{m['homeGoals']}-#{m['visitorGoals']} to #{m['homeReal']}-#{m['visitorReal']}"
-   
+
    data = { :homeGoals => m['homeReal'], :visitorGoals => m['visitorReal'] }
-   
-   response = firebase.update("matches/#{m['mid']}", data)
+
+   response = firebase.update("matches/#{k}", data)
    if response.success?
      puts "OK"
    else
@@ -138,7 +138,7 @@ predictions.body.each do |key,val|
     s = getScore(matches[match_id]['homeReal'], matches[match_id]['visitorReal'], val['homePrediction'], val['visitorPrediction'])
     if scores[user_id].nil?
       scores[user_id] = s
-    else 
+    else
       scores[user_id] += s
     end
   end
@@ -148,7 +148,7 @@ end
 #---------------------
 puts " Update users..."
 #---------------------
-scores.each do |user,score| 
+scores.each do |user,score|
   if user_scores[user] != score
     puts " Update '#{user}' score to #{score}"
     response = firebase.update("users/#{user}", {:score => score})
@@ -161,7 +161,3 @@ scores.each do |user,score|
     puts " User #{user} score up to date"
   end
 end
-
-
-
-
