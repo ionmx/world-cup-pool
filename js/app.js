@@ -14,7 +14,7 @@ function getWinner(home, visitor) {
 
 function getScore(home, visitor, homePrediction, visitorPrediction) {
   var points = 0;
-  if (home > 0) {
+  if (home >= 0) {
     if ( (home == homePrediction) && (visitor == visitorPrediction) ) {
       points = 15;
     } else if (getWinner(home, visitor) == getWinner(homePrediction, visitorPrediction)) {

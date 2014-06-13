@@ -21,7 +21,7 @@ end
 def getScore(home, visitor, homePrediction, visitorPrediction) 
   points = 0
 
-  if home > 0 && !homePrediction.nil? && !visitorPrediction.nil?
+  if home >= 0 && !homePrediction.nil? && !visitorPrediction.nil?
     if home == homePrediction && visitor == visitorPrediction
       points = 15;
     elsif getWinner(home, visitor) == getWinner(homePrediction, visitorPrediction)
