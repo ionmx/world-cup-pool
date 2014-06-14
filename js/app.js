@@ -316,9 +316,16 @@ App.UsersController = Ember.ArrayController.extend({
   sortProperties: ['score'],
   sortAscending: false,
   highScores: function() {
+    var pos = 0;
+    var previous = 0;
     return this.get('arrangedContent').map(function(i, idx) {
-      i['position'] = idx + 1;
-      i['position_class'] = 'position-' + i['position']
+      console.log(i.get('score'));
+      if (i.get('score') != previous) {
+        pos += 1;
+        previous = i.get('score');
+      }
+      i.set('position', pos);
+      i.set('position_class', 'position-' + i['position']);
       return i;
     });
   }.property('@each')
