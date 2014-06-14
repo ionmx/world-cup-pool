@@ -190,6 +190,28 @@ table.matches tr td {
   cursor: pointer;
 }
 
+.stats {
+  position: relative;
+  top: -24px;
+  margin-left: 54px;
+  color: #8ef;
+}
+
+.stat-item {
+}
+
+.stat-title {
+  text-transform: uppercase;
+  font-size: 12px;  
+}
+
+.stat-value {
+  font-weight: bold;
+  font-size: 14px;  
+  color: #fff;
+  padding-left: 10px;
+}
+
 #fork {
   border-top: 1px solid #0ac;
   margin-top: 90px;
@@ -204,9 +226,22 @@ table.matches tr td {
   color: #8ef;
 }
 
-.totalpoints {
+.total-points {
   float: right;
   font-size: 28px;
   background: #0bd;
   color: #fff;
+}
+
+.p-label {
+  font-weight: normal;
+  padding-right: 20px;
+}
+.p-divider {
+  margin-left: 10px;
+  margin-right: 20px;
+  border-right: 1px solid #0ac;
+}
+.p-value {
+  font-weight: bold;
 }

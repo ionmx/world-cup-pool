@@ -15,6 +15,16 @@
             {{ auth.currentUser.name }}
             <a class="logout-link" {{ action logout }}>Sign out</span></a>
           {{/link-to}}
+          <div class="stats">
+            <div class="stat-item">
+              <span class="stat-title">Place: </span>
+              <span class="stat-value">{{auth.currentUser.position}}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-title">Score: </span>
+              <span class="stat-value">{{auth.currentUser.score}}</span>
+            </div>
+          </div>
           {{#link-to 'user' auth.currentUser tagName="button" classNames="btn btn-success btn-block"}}
           Make your predictions
           {{/link-to}}
@@ -146,8 +156,10 @@
       <img {{bind-attr src=model.avatarUrl alt=controller.id}} class="avatar img-circle">
       {{controller.name}}
       <a {{bind-attr href=controller.twitterUrl}} target="_blank"><img src="img/twitter.png"></a>
-      <span class="label totalpoints">
-        Score: {{controller.score}}
+      <span class="label total-points">
+        <span class="p-label">Place:</span><span class="p-value">{{controller.position}}</span>
+        <span class="p-divider"></span>
+        <span class="p-label">Score:</span><span class="p-value">{{controller.score}}</span>
       </span>
     </h1>
 
