@@ -126,10 +126,6 @@ table.matches tr td {
   color: #ddd;
   font-size: 90%;
 }
-#ranking-div {
-  height: 200px;
-  overflow: auto;
-}
 
 #ranking {
   width: 100%;
@@ -256,4 +252,13 @@ h1.x {
 }
 .winner-prediction {
   font-size: :2em;
+}
+
+/*Desktop*/
+@media (max-width: : 992px) {
+  #ranking-div {
+    height: 200px;
+    overflow: auto;
+  }
+
 }
