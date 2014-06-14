@@ -155,12 +155,10 @@ table.matches tr td {
   width: 1em;
 }
 
-.position-1 {
-  padding-top: 20px !important;
-}
-
 .ranking-user .username.position-1 {
-  background: transparent url(../img/crown.png) 9px 4px no-repeat;
+  background-image: url(../img/crown.png);
+  background-position: left top;
+  background-repeat: no-repeat;
 }
 
 .ranking-user .userpoints {
