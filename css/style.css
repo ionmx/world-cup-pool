@@ -131,7 +131,7 @@ table.matches tr td {
 }
 
 .ranking-user td {
-  padding: 10px 20px;
+  padding: 10px 5px;
   color: #fafafa;
 }
 
@@ -146,6 +146,21 @@ table.matches tr td {
 
 .ranking-user img {
   width: 32px;
+  margin-right: 5px;
+}
+
+.ranking-user .position {
+  font-size: 10px;
+  text-align: right;
+  width: 1em;
+}
+
+.position-1 {
+  padding-top: 20px !important;
+}
+
+.ranking-user .username.position-1 {
+  background: transparent url(../img/crown.png) 9px 4px no-repeat;
 }
 
 .ranking-user .userpoints {

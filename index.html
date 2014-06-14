@@ -124,13 +124,16 @@
   <script type="text/x-handlebars" data-template-name="users">
     <div id="ranking-header">High Scores</div>
     <table id="ranking">
-      {{#each user in controller}}
+      {{#each user in controller.highScores}}
         {{#link-to 'user' user tagName="tr" classNames="ranking-user"}}
-          <td class="username">
+          <td {{bind-attr class=":position user.position_class"}}>
+            {{user.position}}
+          </td>
+          <td {{bind-attr class=":username user.position_class"}}>
             <img {{bind-attr src=user.avatarUrl alt=user.id}} class="avatar img-circle">
             {{user.name}}
           </td>
-          <td class="userpoints">
+          <td {{bind-attr class=":userpoints user.position_class"}}>
             {{user.score}}
           </td>
         {{/link-to}}

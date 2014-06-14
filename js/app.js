@@ -314,5 +314,12 @@ App.UserController = Ember.ObjectController.extend({
 App.UsersController = Ember.ArrayController.extend({
   itemController: 'user',
   sortProperties: ['score'],
-  sortAscending: false
+  sortAscending: false,
+  highScores: function() {
+    return this.get('arrangedContent').map(function(i, idx) {
+      i['position'] = idx + 1;
+      i['position_class'] = 'position-' + i['position']
+      return i;
+    });
+  }.property('@each')
 });
