@@ -1,21 +1,22 @@
 #sidebar {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 280px;
-  overflow: auto;
+  /*position: absolute;*/
+  /*top: 0;*/
+  /*bottom: 0;*/
+  /*width: 280px;*/
+  /*overflow: auto;*/
   background: #0bd;
 }
 
 #workarea {
-  position: absolute;
-  top: 0;
-  left: 280px;
-  bottom: 0;
-  width: -moz-calc(100% - 280px);
-  width: calc(100% - 280px);
-  padding: 20px;
-  overflow: auto;
+  /*position: absolute;*/
+  /*top: 0;*/
+  /*left: 280px;*/
+  /*bottom: 0;*/
+  /*width: -moz-calc(100% - 280px);*/
+  /*width: calc(100% - 280px);*/
+  /*padding: 20px;*/
+  padding: 0px;
+  /*overflow: auto;*/
 }
 
 table.matches {
@@ -96,7 +97,7 @@ table.matches tr td {
   color: #0b0;
 }
 
-#rules-header, 
+#rules-header,
 #ranking-header {
   font-size: 16px;
   text-transform: uppercase;
@@ -124,6 +125,10 @@ table.matches tr td {
 .operation {
   color: #ddd;
   font-size: 90%;
+}
+#ranking-div {
+  height: 200px;
+  overflow: auto;
 }
 
 #ranking {
@@ -182,8 +187,7 @@ table.matches tr td {
   float: right;
   color: #fafafa;
   font-weight: normal;
-  font-size: 11px;
-  padding-top: 14px;
+  font-size: .8em;
 }
 
 .current-user {
@@ -202,12 +206,12 @@ table.matches tr td {
 
 .stat-title {
   text-transform: uppercase;
-  font-size: 12px;  
+  font-size: 12px;
 }
 
 .stat-value {
   font-weight: bold;
-  font-size: 14px;  
+  font-size: 14px;
   color: #fff;
   padding-left: 10px;
 }
@@ -227,11 +231,8 @@ table.matches tr td {
 }
 
 .total-points {
-  float: right;
   font-size: 20px;
-  background: #0bd;
-  color: #fff;
-  margin-top: 8px;
+  color: #000;
 }
 
 .p-label {
@@ -246,4 +247,13 @@ table.matches tr td {
 }
 .p-value {
   font-weight: bold;
+}
+h1.x {
+  font-size: 1.6em;
+}
+.exact-score {
+  /*font-size:1.4em;*/
+}
+.winner-prediction {
+  font-size: :2em;
 }

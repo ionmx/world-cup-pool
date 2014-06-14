@@ -6,56 +6,64 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
   <script type="text/x-handlebars" data-template-name="application">
-    <div id="sidebar">
-      <div id="userbox">
-        {{#if auth.authed }}
-          {{#link-to 'user' auth.currentUser tagName="h3" classNames="current-user"}}
-            <img {{bind-attr src=auth.currentUser.avatarUrl alt=model.id}} class="avatar img-circle">
-            {{ auth.currentUser.name }}
-            <a class="logout-link" {{ action logout }}>Sign out</span></a>
-          {{/link-to}}
-          <div class="stats">
-            <div class="stat-item">
-              <span class="stat-title">Place: </span>
-              <span class="stat-value">{{auth.currentUser.position}}</span>
+    <div class="container">
+
+      <div id="sidebar" class="col-md-3 col-xs-hide col-xs-12">
+        <div id="userbox">
+          {{#if auth.authed }}
+            {{#link-to 'user' auth.currentUser tagName="h3" classNames="current-user"}}
+              <img {{bind-attr src=auth.currentUser.avatarUrl alt=model.id}} class="avatar img-circle">
+              {{ auth.currentUser.name }}
+              <a class="logout-link" {{ action logout }} title="Sign out"><span class="glyphicon glyphicon-log-out"></span></span></a>
+            {{/link-to}}
+            <div class="stats">
+              <div class="stat-item">
+                <span class="stat-title">Place: </span>
+                <span class="stat-value">{{auth.currentUser.position}}<sup>th</sup></span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-title">Score: </span>
+                <span class="stat-value">{{auth.currentUser.score}}</span>
+              </div>
             </div>
-            <div class="stat-item">
-              <span class="stat-title">Score: </span>
-              <span class="stat-value">{{auth.currentUser.score}}</span>
-            </div>
+            {{#link-to 'user' auth.currentUser tagName="button" classNames="btn btn-success btn-block"}}
+            My predictions
+            {{/link-to}}
+          {{else}}
+            <button class="btn btn-primary btn-block" {{ action login }}>Sign in with Twitter</button>
+          {{/if}}
+        </div>
+
+        <div id="rules-header">Scoring</div>
+        <div class="rules">
+        <ul>
+          <li class="exact-score">Exact score = 15 points</li>
+          <li class="winner-prediction">Winner prediction = 10 points - goals difference.<br/>
+              <div class="example">
+              Example:<br/>
+              Score: Brazil 3 - 1 Croatia<br/>
+              Your prediction: Brazil 2 - 0 Croatia <br/>
+              Points: 8 <span class="operation">10 - (3 - 2) - (1 - 0)</span>
+              </div>
+          </li>
+        </ul>
+        </div>
+
+        {{outlet ranking}}
+        <div class="hidden-xs">
+          <div id="fork">
+            <a href="https://github.com/ionmx/world-cup-pool">Fork me on GitHub</a>
           </div>
-          {{#link-to 'user' auth.currentUser tagName="button" classNames="btn btn-success btn-block"}}
-          Make your predictions
-          {{/link-to}}
-        {{else}}
-          <button class="btn btn-primary btn-block" {{ action login }}>Sign in with Twitter</button>
-        {{/if}}
+        </div>
       </div>
 
-      <div id="rules-header">Scoring</div>
-      <div class="rules">
-      <ul>
-        <li>Exact score = 15 points</li>
-        <li>Winner prediction = 10 points - goals difference.<br/>
-            <div class="example">
-            Example:<br/>
-            Score: Brazil 3 - 1 Croatia<br/>
-            Your prediction: Brazil 2 - 0 Croatia <br/>
-            Points: 8 <span class="operation">10 - (3 - 2) - (1 - 0)</span>
-            </div>
-        </li>
-      </ul>
+      <div id="workarea" class="col-md-9 col-xs-12">
+        {{outlet}}
       </div>
 
-      {{outlet ranking}}
-      <div id="fork">
-        <a href="https://github.com/ionmx/world-cup-pool">Fork me on GitHub</a>
-      </div>
-    </div>
 
-    <div id="workarea">
-      {{outlet}}
     </div>
   </script>
 
@@ -68,7 +76,7 @@
       <thead>
         <tr>
           <th colspan="5">
-            Score
+            <h1 class="x">World Cup Scores</h1>
             {{#if user}}
             /Prediction
             {{/if}}
@@ -132,23 +140,25 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="users">
-    <div id="ranking-header">High Scores</div>
-    <table id="ranking">
-      {{#each user in controller.highScores}}
-        {{#link-to 'user' user tagName="tr" classNames="ranking-user"}}
-          <td {{bind-attr class=":position user.position_class"}}>
-            {{user.position}}
-          </td>
-          <td {{bind-attr class=":username user.position_class"}}>
-            <img {{bind-attr src=user.avatarUrl alt=user.id}} class="avatar img-circle">
-            {{user.name}}
-          </td>
-          <td {{bind-attr class=":userpoints user.position_class"}}>
-            {{user.score}}
-          </td>
-        {{/link-to}}
-      {{/each}}
-    </table>
+    <div id="ranking-header">World Cup table</div>
+    <div class="col-md-12 col-xs-10" id="ranking-div">
+      <table id="ranking">
+        {{#each user in controller.highScores}}
+          {{#link-to 'user' user tagName="tr" classNames="ranking-user"}}
+            <td {{bind-attr class=":position user.position_class"}}>
+              {{user.position}}
+            </td>
+            <td {{bind-attr class=":username user.position_class"}}>
+              <img {{bind-attr src=user.avatarUrl alt=user.id}} class="avatar img-circle">
+              {{user.name}}
+            </td>
+            <td {{bind-attr class=":userpoints user.position_class"}}>
+              {{user.score}}
+            </td>
+          {{/link-to}}
+        {{/each}}
+      </table>
+    </div>
   </script>
 
   <script type="text/x-handlebars" data-template-name="user">
@@ -157,9 +167,9 @@
       {{controller.name}}
       <a {{bind-attr href=controller.twitterUrl}} target="_blank"><img src="img/twitter.png"></a>
       <span class="label total-points">
-        <span class="p-label">Place:</span><span class="p-value">{{controller.position}}</span>
+        <span class="p-label">Place:</span><span class="p-value">{{controller.position}}<sup>th</sup></span>
         <span class="p-divider"></span>
-        <span class="p-label">Score:</span><span class="p-value">{{controller.score}}</span>
+        <span class="p-label">World Cup Table:</span><span class="p-value">{{controller.score}}</span>
       </span>
     </h1>
 
