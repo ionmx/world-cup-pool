@@ -11,7 +11,7 @@
   <meta name="description" content="Quiniela FIFA World Cup Brazil 2014"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>FIFA World Cup Pool First Stage</title>
+  <title>FIFA World Cup Pool</title>
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -100,8 +100,9 @@
       {{#each match in matches itemController="match"}}
         <tr>
           <td class="home-team" {{bind-attr class=match.home.id}}>
-            <span class="team">{{match.home.name}}</span>
             <img {{bind-attr src=match.home.flag alt=match.home.id}} class="flag img-responsive">
+            <div class="team">{{match.home.name}}</div>
+            
           </td>
           <td class="home-score score">
             {{match.homeGoalsDisplay}}
@@ -134,7 +135,7 @@
           </td>
           <td class="visitor-team" {{bind-attr class=match.visitor.id}}>
             <img {{bind-attr src=match.visitor.flag alt=match.visitor.id}} class="flag img-responsive">
-            <span class="team">{{match.visitor.name}}</span>
+            <div class="team">{{match.visitor.name}}</div>
           </td>
           {{#if user}}
             <td class="points">
@@ -178,12 +179,10 @@
       {{controller.name}}
       <a {{bind-attr href=controller.twitterUrl}} target="_blank"><img src="img/twitter.png"></a>
     </h1>
-      <div class="col-xs-12 col-md-12">
-        <span class="label total-points">
-          <span class="p-label">Place:</span><span class="p-value">{{{controller.positionOrdinal}}}</span>
-          <span class="p-divider"></span>
-          <span class="p-label">World Cup Table:</span><span class="p-value">{{controller.score}}</span>
-        </span>
+    <div class="col-xs-12 col-md-12 total-points">
+      <span class="p-label">Place:</span><span class="p-value">{{{controller.positionOrdinal}}}</span>
+      <span class="p-divider"></span>
+      <span class="p-label">World Cup Table:</span><span class="p-value">{{controller.score}}</span>
     </div>
     {{matches-table matches=controller.matches user=model}}
   </script>

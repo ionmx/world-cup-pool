@@ -2,6 +2,11 @@
   padding: 0;
 }
 
+h1 img.avatar {
+  float: left;
+  margin-right: 10px;
+}
+
 #sidebar {
   background: #0bd;
   padding: 0;
@@ -36,14 +41,23 @@ table.matches tr td {
   border: 1px solid #666;
 }
 .team {
+  height: 32px;
+  padding: 5px;
 }
+
 .home-team {
   font-size: 16px;
   text-align: right;
 }
+.home-team img {
+  float: right;
+}
 .visitor-team {
   font-size: 16px;
   text-align: left;
+}
+.visitor-team img {
+  float: left;
 }
 .bih {
   font-size: 12px !important;
@@ -228,7 +242,7 @@ table.matches tr td {
 .total-points {
   font-size: 20px;
   color: #000;
-  margin-left: 2em;
+  margin: 0 0 20px 40px;
 }
 
 .p-label {
@@ -277,8 +291,8 @@ h3.wc-predictions {
   .visitor-team{
     padding:0px !important;
   }
-  .home-team span,
-  .visitor-team span {
+  .home-team .team,
+  .visitor-team .team {
     display: none;
   }
 }
