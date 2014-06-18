@@ -1,6 +1,12 @@
 /*********
  * Utils
  *********/
+function getOrdinal(n) {
+   var s=["th","st","nd","rd"],
+       v=n%100;
+   return n+'<sup>'+(s[(v-20)%10]||s[v]||s[0])+'</sup>';
+}
+
 function getWinner(home, visitor) {
   if (home > visitor) {
     winner = 'home';
@@ -325,7 +331,8 @@ App.UsersController = Ember.ArrayController.extend({
         previous = i.get('score');
       }
       i.set('position', pos);
-      i.set('position_class', 'position-' + i['position']);
+      i.set('positionOrdinal', getOrdinal(pos));
+      i.set('positionClass', 'position-' + i['position']);
       return i;
     });
   }.property('@each')

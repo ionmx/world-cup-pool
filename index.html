@@ -21,7 +21,7 @@
             <div class="stats">
               <div class="stat-item">
                 <span class="stat-title">Place: </span>
-                <span class="stat-value">{{auth.currentUser.position}}<sup>th</sup></span>
+                <span class="stat-value">{{{auth.currentUser.positionOrdinal}}}</span>
               </div>
               <div class="stat-item">
                 <span class="stat-title">Score: </span>
@@ -145,14 +145,14 @@
       <table id="ranking">
         {{#each user in controller.highScores}}
           {{#link-to 'user' user tagName="tr" classNames="ranking-user"}}
-            <td {{bind-attr class=":position user.position_class"}}>
-              {{user.position}}
+            <td {{bind-attr class=":position user.positionClass"}}>
+              {{{user.positionOrdinal}}}
             </td>
-            <td {{bind-attr class=":username user.position_class"}}>
+            <td {{bind-attr class=":username user.positionClass"}}>
               <img {{bind-attr src=user.avatarUrl alt=user.id}} class="avatar img-circle">
               {{user.name}}
             </td>
-            <td {{bind-attr class=":userpoints user.position_class"}}>
+            <td {{bind-attr class=":userpoints user.positionClass"}}>
               {{user.score}}
             </td>
           {{/link-to}}
@@ -167,7 +167,7 @@
       {{controller.name}}
       <a {{bind-attr href=controller.twitterUrl}} target="_blank"><img src="img/twitter.png"></a>
       <span class="label total-points">
-        <span class="p-label">Place:</span><span class="p-value">{{controller.position}}<sup>th</sup></span>
+        <span class="p-label">Place:</span><span class="p-value">{{{controller.positionOrdinal}}}</span>
         <span class="p-divider"></span>
         <span class="p-label">World Cup Table:</span><span class="p-value">{{controller.score}}</span>
       </span>
