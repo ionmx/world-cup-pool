@@ -8,7 +8,7 @@
 <body>
 
   <script type="text/x-handlebars" data-template-name="application">
-    <div class="container">
+    <div class="container-fluid">
 
       <div id="sidebar" class="col-md-3 col-xs-hide col-xs-12">
         <div id="userbox">
@@ -52,6 +52,7 @@
         </div>
 
         {{outlet ranking}}
+        <div class="clearfix"></div>
         <div class="hidden-xs">
           <div id="fork">
             <a href="https://github.com/ionmx/world-cup-pool">Fork me on GitHub</a>
@@ -76,9 +77,9 @@
       <thead>
         <tr>
           <th colspan="5">
-            <h1 class="x">World Cup Scores</h1>
+            <h2 class="wc-scores">World Cup Scores</h2>
             {{#if user}}
-            /Prediction
+            <h3 class="wc-predictions">Predictions</h3>
             {{/if}}
           </th>
           {{#if user}}

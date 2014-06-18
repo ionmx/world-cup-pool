@@ -1,22 +1,15 @@
+.container-fluid {
+  padding: 0;
+}
+
 #sidebar {
-  /*position: absolute;*/
-  /*top: 0;*/
-  /*bottom: 0;*/
-  /*width: 280px;*/
-  /*overflow: auto;*/
   background: #0bd;
+  padding: 0;
 }
 
 #workarea {
-  /*position: absolute;*/
-  /*top: 0;*/
-  /*left: 280px;*/
-  /*bottom: 0;*/
-  /*width: -moz-calc(100% - 280px);*/
-  /*width: calc(100% - 280px);*/
-  /*padding: 20px;*/
-  padding: 0px;
-  /*overflow: auto;*/
+  padding: 10px;
+  background: #fff;
 }
 
 table.matches {
@@ -24,8 +17,9 @@ table.matches {
 
 table.matches tr th {
   text-align: center;
+  vertical-align: middle;
   background: #ec1;
-  border-bottom: 2px solid #0bd;
+  border-bottom: 3px solid #0bd;
 }
 
 table.matches tr td {
@@ -129,6 +123,7 @@ table.matches tr td {
 
 #ranking {
   width: 100%;
+  padding: 0;
 }
 
 .ranking-user td {
@@ -154,6 +149,10 @@ table.matches tr td {
   font-size: 10px;
   text-align: right;
   width: 1em;
+}
+
+.ranking-user .username {
+  white-space: nowrap;
 }
 
 .ranking-user .username.position-1 {
@@ -229,6 +228,7 @@ table.matches tr td {
 .total-points {
   font-size: 20px;
   color: #000;
+  margin-left: 2em;
 }
 
 .p-label {
@@ -244,21 +244,29 @@ table.matches tr td {
 .p-value {
   font-weight: bold;
 }
-h1.x {
-  font-size: 1.6em;
+h2.wc-scores {
+  font-size: 1.4em;
+  margin: 0;
+  padding: 0;
+  color: #069;
 }
-.exact-score {
-  /*font-size:1.4em;*/
+h3.wc-predictions {
+  font-size: 1.2em;
+  margin: 0;
+  padding: 0;
 }
-.winner-prediction {
-  font-size: :2em;
+
+#ranking-div {
+  padding: 0;
 }
 
 /*Desktop*/
-@media (max-width: : 992px) {
+@media (max-width: 992px) {
   #ranking-div {
     height: 200px;
+    width: 100%;
+    border-bottom: 1px solid #0ac;
+    border-top: 1px solid #0ac;
     overflow: auto;
   }
-
 }
