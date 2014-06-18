@@ -113,11 +113,11 @@ table.matches tr td {
   color: #8ef;
   text-align: center;
   padding: 10px;
+  border-top: 1px solid #0ac;
 }
 
 .rules {
   color: #fafafa;
-  border-bottom: 1px solid #0ac;
   padding: 0px 20px 20px 0px;
 }
 
@@ -183,7 +183,6 @@ table.matches tr td {
 #userbox {
   background: #0bd url(../img/logo.png) top center no-repeat;
   padding: 160px 20px 10px 20px;
-  border-bottom: 1px solid #0ac;
 }
 
 #userbox h3 {
