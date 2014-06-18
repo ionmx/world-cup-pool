@@ -1,6 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="author" content="Jonathan Hernández - @ion">
+  <meta property="og:title" content="FIFA World Cup Quiniela">
+  <meta property="og:url" content="http://matach.in/fifa">
+  <meta property="og:site_name" content="FIFA World Cup Quiniela">
+  <meta property="og:image" content="http://matach.in/fifa/img/logo_blue.png">
+  <meta property="og:description" content="Quiniela FIFA World Cup Brazil 2014">
+  <meta name="description" content="Quiniela FIFA World Cup Brazil 2014"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>FIFA World Cup Pool First Stage</title>
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/style.css">
@@ -10,7 +20,7 @@
   <script type="text/x-handlebars" data-template-name="application">
     <div class="container-fluid">
 
-      <div id="sidebar" class="col-md-3 col-xs-hide col-xs-12">
+      <div id="sidebar" class="col-md-3 col-xs-12">
         <div id="userbox">
           {{#if auth.authed }}
             {{#link-to 'user' auth.currentUser tagName="h3" classNames="current-user"}}
