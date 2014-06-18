@@ -182,7 +182,7 @@ table.matches tr td {
 
 #userbox {
   background: #0bd url(../img/logo.png) top center no-repeat;
-  padding: 160px 20px 10px 20px;
+  padding: 100px 20px 10px 20px;
 }
 
 #userbox h3 {
@@ -276,7 +276,7 @@ h3.wc-predictions {
 /*Móvil*/
 @media (max-width: 992px) {
   #ranking-div {
-    height: 200px;
+    height: 220px;
     width: 100%;
     border-bottom: 1px solid #0ac;
     border-top: 1px solid #0ac;
