@@ -260,7 +260,7 @@ h3.wc-predictions {
   padding: 0;
 }
 
-/*Desktop*/
+/*Móvil*/
 @media (max-width: 992px) {
   #ranking-div {
     height: 200px;
@@ -269,4 +269,18 @@ h3.wc-predictions {
     border-top: 1px solid #0ac;
     overflow: auto;
   }
+  .total-points {
+    font-size:.9em;
+    margin-left:0;
+  }
+  .home-team,
+  .visitor-team{
+    padding:0px !important;
+  }
+  .home-team span,
+  .visitor-team span {
+    display: none;
+  }
 }
+
+
