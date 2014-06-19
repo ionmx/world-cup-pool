@@ -241,7 +241,7 @@ table.matches tr td {
 .total-points {
   font-size: 20px;
   color: #000;
-  margin: 0 0 20px 40px;
+  padding: 0 0 20px 50px;
 }
 
 .p-label {
