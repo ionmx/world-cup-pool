@@ -77,7 +77,7 @@ matchesFB.body.each_with_index do |m, index|
   if !m.nil?
     key = "#{m['home']}_#{m['visitor']}"
     json['Events'].each do |e|
-      if !e['HomeAbbrev'].nil?
+      if !e['HomeAbbrev'].nil? && !e['AwayAbbrev'].nil?
         e_key = "#{e['HomeAbbrev'].downcase}_#{e['AwayAbbrev'].downcase}"
         if key == e_key
           m['homeReal'] = e['HomeScore']
