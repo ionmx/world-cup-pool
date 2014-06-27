@@ -1,4 +1,17 @@
 /*********
+ * Load Configuration
+ *********/
+var config;
+$.ajax({
+  url: '../config.json',
+  dataType: 'json',
+  async: false,
+  success: function(data) {
+    config = data;
+  }
+});
+
+/*********
  * Utils
  *********/
 function getOrdinal(n) {
@@ -35,7 +48,7 @@ function getScore(home, visitor, homePrediction, visitorPrediction) {
 }
 
 /******
- * App 
+ * App
  ******/
 App = Ember.Application.create({
   LOG_TRANSITIONS: true,
@@ -48,7 +61,7 @@ App = Ember.Application.create({
 
 });
 
-var firebaseRef = new Firebase('https://<YOUR-FIREBASE>.firebaseio.com');
+var firebaseRef = new Firebase(config.firebase);
 
 App.ApplicationAdapter = DS.FirebaseAdapter.extend({
   firebase: firebaseRef
@@ -58,7 +71,7 @@ App.ApplicationRoute = Ember.Route.extend({
   init: function() {
     var auth = this.get('auth');
     auth.store = this.get('store');
-  }, 
+  },
   renderTemplate: function() {
     this.render();
     this.render('users', {
@@ -92,7 +105,7 @@ App.ApplicationController = Ember.Controller.extend({
 });
 
 /********
- * Auth 
+ * Auth
  *******/
 App.AuthController = Ember.Controller.extend({
   needs: ['application'],
@@ -104,7 +117,7 @@ App.AuthController = Ember.Controller.extend({
     this.authClient = new FirebaseSimpleLogin(firebaseRef, function(error, userTwitter) {
       if (error) {
         alert('Authentication failed: ' + error);
-      } else if (userTwitter) {  
+      } else if (userTwitter) {
         self.set('controllers.application.viewUserID', userTwitter.username);
         self.set('authed', true);
         self.store.find('user', userTwitter.username).then(function(user) {
@@ -162,7 +175,7 @@ App.AuthController = Ember.Controller.extend({
 
 
 /*********
- * Models 
+ * Models
  *********/
 
 App.User = DS.Model.extend({
@@ -170,7 +183,7 @@ App.User = DS.Model.extend({
   displayName:  DS.attr('string'),
   avatarUrl:    DS.attr('string'),
   score:        DS.attr('number'),
-  predictions:  DS.hasMany('prediction', { inverse: 'user', async: true }), 
+  predictions:  DS.hasMany('prediction', { inverse: 'user', async: true }),
   twitterUrl: function() {
     return 'http://twitter.com/' + this.get('id');
   }.property()
@@ -192,7 +205,7 @@ App.Match = DS.Model.extend({
   homeGoals:    DS.attr('number'),
   visitor:      DS.belongsTo('team', { async: true }),
   visitorGoals: DS.attr('number'),
-  
+
   matchDate: function() {
     return moment(this.get('date')).format('MMMM Do');
   }.property('date'),
@@ -233,11 +246,11 @@ App.IndexRoute = Ember.Route.extend({
  **********/
 App.MatchController = Ember.ObjectController.extend({
   needs: ['application'],
-  
+
   isEditable: function() {
     var msBefore = 7200000;  // Two hours before
     var now = new Date().getTime();
-    return (this.get('auth.authed') && 
+    return (this.get('auth.authed') &&
             this.get('isVisible') &&
             (this.get('date') - now) > msBefore &&
             this.get('controllers.application.viewUserID') == this.get('auth.currentUser.id'));
@@ -268,11 +281,11 @@ App.MatchController = Ember.ObjectController.extend({
     return this.store.find('prediction', id);
   }.property('model','controllers.application.viewUserID'),
 
-  homePredictionDisplay: function() { 
+  homePredictionDisplay: function() {
     return (this.get('prediction.homePrediction') >= 0) ? this.get('prediction.homePrediction') : '-';
   }.property('prediction.homePrediction'),
 
-  visitorPredictionDisplay: function() { 
+  visitorPredictionDisplay: function() {
     return (this.get('prediction.visitorPrediction') >= 0) ? this.get('prediction.visitorPrediction') : '-';
   }.property('prediction.visitorPrediction'),
 
@@ -292,7 +305,7 @@ App.MatchController = Ember.ObjectController.extend({
           // Fail
           function() {
             alert('Error');
-          } 
+          }
         );
       });
     }
@@ -301,7 +314,7 @@ App.MatchController = Ember.ObjectController.extend({
 });
 
 /*******
- * User 
+ * User
  *******/
 App.UserRoute = Ember.Route.extend({
   setupController: function(controller, model) {
