@@ -2,7 +2,7 @@ require 'rubygems'
 require 'pp'
 require 'firebase'
 
-firebase_uri = "https://ionwcfinals.firebaseio.com"
+firebase_uri = "https://<YOUR-FIREBASE>.firebaseio.com"
 firebase = Firebase::Client.new(firebase_uri)
 
 users = firebase.get('users')

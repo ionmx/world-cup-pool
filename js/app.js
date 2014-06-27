@@ -48,7 +48,7 @@ App = Ember.Application.create({
 
 });
 
-var firebaseRef = new Firebase('https://ionwcfinals.firebaseio.com');
+var firebaseRef = new Firebase('https://<YOUR-FIREBASE>.firebaseio.com');
 
 App.ApplicationAdapter = DS.FirebaseAdapter.extend({
   firebase: firebaseRef
