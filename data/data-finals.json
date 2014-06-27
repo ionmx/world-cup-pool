@@ -1,0 +1,154 @@
+{
+  "teams" : {
+    "null" : {
+      "group" : "?",
+      "name" : "?"
+    },
+    "alg" : {
+      "group" : "h",
+      "name" : "Algeria"
+    },
+    "por" : {
+      "group" : "g",
+      "name" : "Portugal"
+    },
+    "esp" : {
+      "group" : "b",
+      "name" : "Spain"
+    },
+    "chi" : {
+      "group" : "b",
+      "name" : "Chile"
+    },
+    "fra" : {
+      "group" : "e",
+      "name" : "France"
+    },
+    "jpn" : {
+      "group" : "c",
+      "name" : "Japan"
+    },
+    "cmr" : {
+      "group" : "a",
+      "name" : "Cameroon"
+    },
+    "ned" : {
+      "group" : "b",
+      "name" : "Netherlands"
+    },
+    "ecu" : {
+      "group" : "e",
+      "name" : "Ecuador"
+    },
+    "hon" : {
+      "group" : "e",
+      "name" : "Honduras"
+    },
+    "nga" : {
+      "group" : "f",
+      "name" : "Nigeria"
+    },
+    "uru" : {
+      "group" : "d",
+      "name" : "Uruguay"
+    },
+    "civ" : {
+      "group" : "c",
+      "name" : "Cote D'Ivoire"
+    },
+    "bih" : {
+      "group" : "f",
+      "name" : "Bosnia and Herzegovina"
+    },
+    "cro" : {
+      "group" : "a",
+      "name" : "Croatia"
+    },
+    "ita" : {
+      "group" : "d",
+      "name" : "Italy"
+    },
+    "gha" : {
+      "group" : "g",
+      "name" : "Ghana"
+    },
+    "gre" : {
+      "group" : "c",
+      "name" : "Greece"
+    },
+    "col" : {
+      "group" : "c",
+      "name" : "Colombia"
+    },
+    "bra" : {
+      "group" : "a",
+      "name" : "Brazil"
+    },
+    "bel" : {
+      "group" : "h",
+      "name" : "Belgium"
+    },
+    "crc" : {
+      "group" : "d",
+      "name" : "Costa Rica"
+    },
+    "usa" : {
+      "group" : "g",
+      "name" : "USA"
+    },
+    "aus" : {
+      "group" : "b",
+      "name" : "Australia"
+    },
+    "irn" : {
+      "group" : "f",
+      "name" : "Iran"
+    },
+    "arg" : {
+      "group" : "f",
+      "name" : "Argentina"
+    },
+    "ger" : {
+      "group" : "g",
+      "name" : "Germany"
+    },
+    "kor" : {
+      "group" : "h",
+      "name" : "Korea Republic"
+    },
+    "mex" : {
+      "group" : "a",
+      "name" : "Mexico"
+    },
+    "rus" : {
+      "group" : "h",
+      "name" : "Russia"
+    },
+    "eng" : {
+      "group" : "d",
+      "name" : "England"
+    },
+    "sui" : {
+      "group" : "e",
+      "name" : "Switzerland"
+    }
+  },
+  "matches" : { 
+    "49":{"date":1403971200000,"group_stage":"4","home":"bra","visitor":"chi","homeGoals":-1,"visitorGoals":-1},
+    "50":{"date":1403985600000,"group_stage":"4","home":"col","visitor":"uru","homeGoals":-1,"visitorGoals":-1},
+    "51":{"date":1404057600000,"group_stage":"4","home":"ned","visitor":"mex","homeGoals":-1,"visitorGoals":-1},
+    "52":{"date":1404072000000,"group_stage":"4","home":"crc","visitor":"gre","homeGoals":-1,"visitorGoals":-1},
+    "53":{"date":1404144000000,"group_stage":"4","home":"fra","visitor":"nga","homeGoals":-1,"visitorGoals":-1},
+    "54":{"date":1404158400000,"group_stage":"4","home":"ger","visitor":"alg","homeGoals":-1,"visitorGoals":-1},
+    "55":{"date":1404230400000,"group_stage":"4","home":"arg","visitor":"sui","homeGoals":-1,"visitorGoals":-1},
+    "56":{"date":1404244800000,"group_stage":"4","home":"bel","visitor":"usa","homeGoals":-1,"visitorGoals":-1},
+    "57":{"date":1404504000000,"group_stage":"5","home":"null","visitor":"null","homeGoals":-1,"visitorGoals":-1},
+    "58":{"date":1404489600000,"group_stage":"5","home":"null","visitor":"null","homeGoals":-1,"visitorGoals":-1},
+    "59":{"date":1404590400000,"group_stage":"5","home":"null","visitor":"null","homeGoals":-1,"visitorGoals":-1},
+    "60":{"date":1404576000000,"group_stage":"5","home":"null","visitor":"null","homeGoals":-1,"visitorGoals":-1},
+    "61":{"date":1404849600000,"group_stage":"6","home":"null","visitor":"null","homeGoals":-1,"visitorGoals":-1},
+    "62":{"date":1404936000000,"group_stage":"6","home":"null","visitor":"null","homeGoals":-1,"visitorGoals":-1},
+    "63":{"date":1405195200000,"group_stage":"7","home":"null","visitor":"null","homeGoals":-1,"visitorGoals":-1},
+    "64":{"date":1405278000000,"group_stage":"7","home":"null","visitor":"null","homeGoals":-1,"visitorGoals":-1}
+  }
+}
