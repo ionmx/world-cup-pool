@@ -48,7 +48,7 @@ App = Ember.Application.create({
 
 });
 
-var firebaseRef = new Firebase('https://fifapool2014.firebaseio.com');
+var firebaseRef = new Firebase('https://ionwcfinals.firebaseio.com');
 
 App.ApplicationAdapter = DS.FirebaseAdapter.extend({
   firebase: firebaseRef
@@ -234,24 +234,20 @@ App.IndexRoute = Ember.Route.extend({
 App.MatchController = Ember.ObjectController.extend({
   needs: ['application'],
   
-  editable: function() {
+  isEditable: function() {
     var msBefore = 7200000;  // Two hours before
     var now = new Date().getTime();
-    return (this.get('auth.authed')) && 
-           ( (this.get('date') - now > msBefore) ) &&
-           (this.get('controllers.application.viewUserID') == this.get('auth.currentUser.id'));
-  }.property('date', 'controllers.application.viewUserID', 'auth.currentUser'),
+    return (this.get('auth.authed') && 
+            this.get('isVisible') &&
+            (this.get('date') - now) > msBefore &&
+            this.get('controllers.application.viewUserID') == this.get('auth.currentUser.id'));
+  }.property('date', 'isVisible', 'controllers.application.viewUserID', 'auth.currentUser'),
 
-  getWinner: function(home, visitor) {
-    if (home > visitor) {
-      winner = 'home';
-    } else if (home < visitor) {
-      winner = 'visitor';
-    } else {
-      winner = 'tied';
-    }
-  },
-  
+  isVisible: function() {
+    return ((this.get('home').get('id') != 'null') &&
+            (this.get('visitor').get('id') != 'null'));
+  }.property('home.id', 'visitor.id'),
+
   userPoints: function() {
     return getScore(this.get('homeGoals'),
                     this.get('visitorGoals'),
@@ -279,6 +275,10 @@ App.MatchController = Ember.ObjectController.extend({
   visitorPredictionDisplay: function() { 
     return (this.get('prediction.visitorPrediction') >= 0) ? this.get('prediction.visitorPrediction') : '-';
   }.property('prediction.visitorPrediction'),
+
+  gameClass: function() {
+    return 'game-' + this.get('id');
+  }.property('id'),
 
   actions: {
     updatePrediction: function(goals) {
@@ -325,7 +325,6 @@ App.UsersController = Ember.ArrayController.extend({
     var pos = 0;
     var previous = 0;
     return this.get('arrangedContent').map(function(i, idx) {
-      console.log(i.get('score'));
       if (i.get('score') != previous) {
         pos += 1;
         previous = i.get('score');

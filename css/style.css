@@ -89,12 +89,14 @@ table.matches tr td {
 }
 
 .mid-cell {
-  color: #eee;
+  color: #000;
+  font-size: 14px;
   text-align: center;
 }
 
 .vs {
   text-align: center;
+  color: #eee;
   font-size: 20px;
 }
 
@@ -271,6 +273,58 @@ h3.wc-predictions {
 
 #ranking-div {
   padding: 0;
+}
+
+tr.game-49,
+tr.game-57,
+tr.game-61,
+tr.game-63,
+tr.game-64 {
+  border-top: 3px solid #0bd;
+}
+
+.game-49 td,
+.game-57 td,
+.game-61 td,
+.game-63 td,
+.game-64 td {
+  padding-top: 30px !important;
+}
+
+.game-49 td.mid-cell,
+.game-57 td.mid-cell,
+.game-61 td.mid-cell,
+.game-63 td.mid-cell,
+.game-64 td.mid-cell {
+  padding-top: 5px !important;
+}
+
+.game-49 td.mid-cell .match-date:first-child,
+.game-57 td.mid-cell .match-date:first-child,
+.game-61 td.mid-cell .match-date:first-child,
+.game-63 td.mid-cell .match-date:first-child,
+.game-64 td.mid-cell .match-date:first-child {
+  padding-top: 5px !important;
+}
+
+.game-49 td.mid-cell:before {
+  content: "Round of 16";
+}
+
+.game-57 td.mid-cell:before {
+  content: "Quarter-finals";
+}
+
+.game-61 td.mid-cell:before {
+  content: "Semi-finals";
+}
+
+.game-63 td.mid-cell:before {
+  content: "3rd place";
+}
+
+.game-64 td.mid-cell:before {
+  content: "Final";
 }
 
 /*Móvil*/

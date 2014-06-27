@@ -98,51 +98,53 @@
         </tr>
       </thead>
       {{#each match in matches itemController="match"}}
-        <tr>
-          <td class="home-team" {{bind-attr class=match.home.id}}>
-            <img {{bind-attr src=match.home.flag alt=match.home.id}} class="flag img-responsive">
-            <div class="team">{{match.home.name}}</div>
-            
-          </td>
-          <td class="home-score score">
-            {{match.homeGoalsDisplay}}
-            {{#if user}}
-              <div class="prediction">
-                {{#if match.editable}}
-                  {{input type="number" min=0 value=match.prediction.homePrediction insert-newline="updatePrediction" focus-out="updatePrediction" class="form-control"}}
-                {{else}}
-                  {{match.homePredictionDisplay}}
-                {{/if}}
-              </div>
-            {{/if}}
-          </td>
-          <td class="mid-cell">
-            <div class="match-date">{{match.matchDate}}</div>
-            <div class="vs">-</div>
-            <div class="match-date">{{match.matchTime}}</div>
-          </td>
-          <td class="visitor-score score">
-            {{match.visitorGoalsDisplay}}
-            {{#if user}}
-              <div class="prediction">
-                {{#if match.editable}}
-                  {{input type="number" min=0 value=match.prediction.visitorPrediction insert-newline="updatePrediction" focus-out="updatePrediction" class="form-control"}}
-                {{else}}
-                  {{match.visitorPredictionDisplay}}
-                {{/if}}
-              </div>
-            {{/if}}
-          </td>
-          <td class="visitor-team" {{bind-attr class=match.visitor.id}}>
-            <img {{bind-attr src=match.visitor.flag alt=match.visitor.id}} class="flag img-responsive">
-            <div class="team">{{match.visitor.name}}</div>
-          </td>
-          {{#if user}}
-            <td class="points">
-              {{match.userPoints}}</div>
+        {{#if match.isVisible}}
+          <tr {{bind-attr class=match.gameClass}}>
+            <td class="home-team" {{bind-attr class=match.home.id}}>
+              <img {{bind-attr src=match.home.flag alt=match.home.id}} class="flag img-responsive">
+              <div class="team">{{match.home.name}}</div>
+              
             </td>
-          {{/if}}
-        </tr>
+            <td class="home-score score">
+              {{match.homeGoalsDisplay}}
+              {{#if user}}
+                <div class="prediction">
+                  {{#if match.isEditable}}
+                    {{input type="number" min=0 value=match.prediction.homePrediction insert-newline="updatePrediction" focus-out="updatePrediction" class="form-control"}}
+                  {{else}}
+                    {{match.homePredictionDisplay}}
+                  {{/if}}
+                </div>
+              {{/if}}
+            </td>
+            <td class="mid-cell">
+              <div class="match-date">{{match.matchDate}}</div>
+              <div class="vs">-</div>
+              <div class="match-date">{{match.matchTime}}</div>
+            </td>
+            <td class="visitor-score score">
+              {{match.visitorGoalsDisplay}}
+              {{#if user}}
+                <div class="prediction">
+                  {{#if match.isEditable}}
+                    {{input type="number" min=0 value=match.prediction.visitorPrediction insert-newline="updatePrediction" focus-out="updatePrediction" class="form-control"}}
+                  {{else}}
+                    {{match.visitorPredictionDisplay}}
+                  {{/if}}
+                </div>
+              {{/if}}
+            </td>
+            <td class="visitor-team" {{bind-attr class=match.visitor.id}}>
+              <img {{bind-attr src=match.visitor.flag alt=match.visitor.id}} class="flag img-responsive">
+              <div class="team">{{match.visitor.name}}</div>
+            </td>
+            {{#if user}}
+              <td class="points">
+                {{match.userPoints}}</div>
+              </td>
+            {{/if}}
+          </tr>
+        {{/if}}
       {{/each}}
     </table>
   </script>
