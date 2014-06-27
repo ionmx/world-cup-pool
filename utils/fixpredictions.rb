@@ -1,8 +1,12 @@
 require 'rubygems'
 require 'pp'
 require 'firebase'
+require 'json'
 
-firebase_uri = "https://<YOUR-FIREBASE>.firebaseio.com"
+configFile = File.read(File.expand_path("../../config.json", __FILE__))
+config = JSON.load(configFile)
+
+firebase_uri = config['firebase']
 firebase = Firebase::Client.new(firebase_uri)
 
 users = firebase.get('users')
@@ -20,7 +24,7 @@ users.body.each do |uk, uv|
       if preds_array.include? pred_key
         puts "#{pred_key} OK"
       else
-        if mindex != 0 
+        if mindex != 0
           puts "#{pred_key} needs to be created"
 
           response = firebase.set("users/#{uk}/predictions/#{pred_key}", true)
@@ -41,7 +45,7 @@ users.body.each do |uk, uv|
         end
       end
     end
-  else 
+  else
     puts "FAIL"
   end
 end
