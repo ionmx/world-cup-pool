@@ -3,7 +3,7 @@
  *********/
 var config;
 $.ajax({
-  url: '../config.json',
+  url: document.URL + '/config.json',
   dataType: 'json',
   async: false,
   success: function(data) {
